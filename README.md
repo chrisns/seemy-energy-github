@@ -12,4 +12,4 @@
 1. Remaps the relevant data to a series of non vendor specific data model
 1. Writes to [dynamodb](https://aws.amazon.com/dynamodb/) for later analysis
 
-Query is done by _something else_ TBC, this just carries out ETL
+Querying this data is done by something else (that doesn't exist yet), this just carries out ETL
