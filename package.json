@@ -7,7 +7,7 @@
     "test": "nyc mocha",
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
-    "coverage-report": "nyc report --reporter=text-lcov > ./coverage/lcov.info"
+    "coverage-report": "nyc report --reporter=lcov"
   },
   "repository": {
     "type": "git",
