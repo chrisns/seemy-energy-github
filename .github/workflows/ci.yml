@@ -10,17 +10,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x]
-
     steps:
       - uses: actions/checkout@v2.3.4
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.1.4
+      - uses: actions/setup-node@v2.1.4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 12
 
       - name: Cache node modules
         id: cache-node-modules
@@ -29,26 +24,11 @@ jobs:
           path: node_modules
           key: ${{ matrix['node-version'] }}-npm-${{ hashFiles('package-lock.json') }}
 
-      - name: NPM Install
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      - if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm install
 
-      # - name: NPM Lint
-      #   if: matrix['node-version'] == '14.x'
-      #   run: npm run lint
+      - run: npm run lint
 
-      - name: Test
-        run: npm run test
+      - run: npm run test
 
-      # - name: Generate coverage report
-      #   if: matrix['node-version'] == '14.x'
-      #   run: |
-      #     npm run coverage
-      #     npm run record-coverage
-
-      # - name: Coveralls
-      #   uses: coverallsapp/github-action@master
-      #   if: matrix['node-version'] == '14.x'
-      #   with:
-      #     github-token: ${{ secrets.github_token }}
-
+      - run: nyc report --reporter=text-lcov | coveralls

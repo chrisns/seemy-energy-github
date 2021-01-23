@@ -1,8 +1,8 @@
 import { GetResponseDataTypeFromEndpointMethod } from '@octokit/types'
+import { Octokit } from '@octokit/rest'
+const octokit = new Octokit()
 
-type PullRequestGetResponseDataType = GetResponseDataTypeFromEndpointMethod<
-  typeof octokit.pulls.get
->
+type PullRequestGetResponseDataType = GetResponseDataTypeFromEndpointMethod<typeof octokit.pulls.get>
 
 interface RecordPullRequest {
   repo: string
@@ -24,9 +24,7 @@ interface RecordPullRequest {
   changed_files: number
 }
 
-export function formatPullRequest (
-  pull: PullRequestGetResponseDataType
-): RecordPullRequest {
+export function formatPullRequest (pull: PullRequestGetResponseDataType): RecordPullRequest {
   return {
     repo: pull.base.repo.name,
     id: pull.number,
@@ -44,8 +42,6 @@ export function formatPullRequest (
     assignees: pull.assignees ? pull.assignees.length : 0,
     reviewers: pull.requested_reviewers ? pull.requested_reviewers.length : 0,
     body_length: pull.body ? pull.body.length : 0,
-    time_to_merge: pull.merged_at
-      ? Date.parse(pull.merged_at) - Date.parse(pull.created_at)
-      : 0
+    time_to_merge: pull.merged_at ? Date.parse(pull.merged_at) - Date.parse(pull.created_at) : 0,
   }
 }

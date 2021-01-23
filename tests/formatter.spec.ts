@@ -1,9 +1,12 @@
 import * as mod from '../src/formatter'
-import { expect, use } from 'chai'
-const pullGood = require('./fixtures/pull-good.json')
-const pullBad = require('./fixtures/pull-bad.json')
-use(require('chai-as-promised'))
-
+import * as chai from 'chai'
+const expect = chai.expect
+import pullGoodRaw from './fixtures/pull-good.json'
+import pullBadRaw from './fixtures/pull-bad.json'
+const pullBad = JSON.parse(JSON.stringify(pullBadRaw))
+const pullGood = JSON.parse(JSON.stringify(pullGoodRaw))
+import chaiAsPromised from 'chai-as-promised'
+chai.use(chaiAsPromised)
 import 'mocha'
 
 describe('query a repository', () => {
@@ -31,9 +34,8 @@ describe('query a repository', () => {
       review_comments: 0,
       additions: 10,
       deletions: 5,
-      changed_files: 2
+      changed_files: 2,
     }))
-
   it('should format a good pull request', () =>
     expect(mod.formatPullRequest(pullGood)).to.eql({
       assignees: 9,
@@ -52,7 +54,7 @@ describe('query a repository', () => {
       review_comments: 0,
       additions: 10,
       deletions: 5,
-      changed_files: 2
+      changed_files: 2,
     }))
 
   it('should format a status checks', () =>
@@ -73,7 +75,7 @@ describe('query a repository', () => {
       review_comments: 0,
       additions: 10,
       deletions: 5,
-      changed_files: 2
+      changed_files: 2,
     }))
 })
 
