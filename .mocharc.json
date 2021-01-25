@@ -1,6 +1,0 @@
-{
-  "extension": ["ts"],
-  "spec": "tests/**/*.spec.ts",
-  "require": ["ts-node/register", "source-map-support/register"],
-  "timeout": 100000
-}
