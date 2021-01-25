@@ -8,6 +8,8 @@ module.exports = function (w) {
     },
     testFramework: 'mocha',
     setup: function (w) {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      require('dotenv').config();
       const mocha = w.testFramework
       mocha.timeout(30000)
     },
