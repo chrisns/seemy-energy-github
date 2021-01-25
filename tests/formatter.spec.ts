@@ -1,20 +1,15 @@
 import * as mod from '../src/formatter'
-import * as chai from 'chai'
-const expect = chai.expect
 import issueGoodRaw from './fixtures/issue-good.json'
 import pullGoodRaw from './fixtures/pull-good.json'
 import pullBadRaw from './fixtures/pull-bad.json'
 const issueGood = JSON.parse(JSON.stringify(issueGoodRaw))
 const pullBad = JSON.parse(JSON.stringify(pullBadRaw))
 const pullGood = JSON.parse(JSON.stringify(pullGoodRaw))
-import chaiAsPromised from 'chai-as-promised'
-chai.use(chaiAsPromised)
-import 'mocha'
 
 describe('formatter', () => {
   describe('pull request', () => {
-    it('should format a bad pull request', () =>
-      expect(mod.formatPullRequest(pullBad)).to.eql({
+    test('should format a bad pull request', () =>
+      expect(mod.formatPullRequest(pullBad)).toStrictEqual({
         assignees: 0,
         author: 'palnabarun',
         body_length: 0,
@@ -33,8 +28,8 @@ describe('formatter', () => {
         deletions: 5,
         changed_files: 2,
       }))
-    it('should format a good pull request', () =>
-      expect(mod.formatPullRequest(pullGood)).to.eql({
+    test('should format a good pull request', () =>
+      expect(mod.formatPullRequest(pullGood)).toStrictEqual({
         assignees: 9,
         author: 'palnabarun',
         body_length: 336,
@@ -55,8 +50,8 @@ describe('formatter', () => {
       }))
   })
   describe('issue', () => {
-    it('should format a good issue', () =>
-      expect(mod.formatIssue(issueGood)).to.eql({
+    test('issue: should format a good issue', () =>
+      expect(mod.formatIssue(issueGood)).toStrictEqual({
         assignees: 0,
         author: 'mikksoone',
         body_length: 2733,
@@ -69,18 +64,5 @@ describe('formatter', () => {
         repo: 'kubernetes',
         time_to_merge: 38216555000,
       }))
-  })
-})
-
-describe('query a pull request', () => {
-  it('should write the pull request to the dynamodb table')
-  it('should queue retrieving the corresponding issue')
-  it('should queue retrieving the corresponding diff')
-  it('should queue retrieving the corresponding commits')
-  it('should queue retrieving the corresponding reviews')
-  it('should queue retrieving the corresponding review_comments')
-
-  describe('query an issue from pull request issue', () => {
-    it('should write the issue to the dynamodb table')
   })
 })
