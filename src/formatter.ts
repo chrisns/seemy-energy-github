@@ -62,7 +62,6 @@ interface RecordIssue {
 }
 
 export function formatIssue (issue: IssuesGetResponseDataType): RecordIssue {
-  console.log(issue)
   return {
     repo: issue.repository_url.split('/').reverse()[0],
     id: issue.number,
