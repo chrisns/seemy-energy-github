@@ -1,7 +1,9 @@
 import * as mod from '../src/formatter'
+import issueBadRaw from './fixtures/issue-bad.json'
 import issueGoodRaw from './fixtures/issue-good.json'
 import pullGoodRaw from './fixtures/pull-good.json'
 import pullBadRaw from './fixtures/pull-bad.json'
+const issueBad = JSON.parse(JSON.stringify(issueBadRaw))
 const issueGood = JSON.parse(JSON.stringify(issueGoodRaw))
 const pullBad = JSON.parse(JSON.stringify(pullBadRaw))
 const pullGood = JSON.parse(JSON.stringify(pullGoodRaw))
@@ -50,7 +52,7 @@ describe('formatter', () => {
       }))
   })
   describe('issue', () => {
-    test('issue: should format a good issue', () =>
+    test('should format a good issue', () =>
       expect(mod.formatIssue(issueGood)).toStrictEqual({
         assignees: 0,
         author: 'mikksoone',
@@ -63,6 +65,20 @@ describe('formatter', () => {
         owner: 'kubernetes',
         repo: 'kubernetes',
         time_to_merge: 38216555000,
+      }))
+    test('should format a bad issue', () =>
+      expect(mod.formatIssue(issueBad)).toStrictEqual({
+        assignees: 2,
+        author: 'mikksoone',
+        body_length: 0,
+        closed_at: 0,
+        created_at: 1512598487000,
+        id: 56903,
+        comments: 253,
+        closed_by: '',
+        owner: 'kubernetes',
+        repo: 'kubernetes',
+        time_to_merge: 0,
       }))
   })
 })

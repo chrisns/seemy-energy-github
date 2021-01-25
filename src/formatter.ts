@@ -71,7 +71,7 @@ export function formatIssue (issue: IssuesGetResponseDataType): RecordIssue {
     closed_by: issue.closed_by ? issue.closed_by.login : '',
     created_at: Date.parse(issue.created_at),
     closed_at: issue.closed_at ? Date.parse(issue.closed_at) : 0,
-    assignees: issue.assignees ? issue.assignees.length : 0,
+    assignees: issue.assignees.length,
     body_length: issue.body ? issue.body.length : 0,
     time_to_merge: issue.closed_at ? Date.parse(issue.closed_at) - Date.parse(issue.created_at) : 0,
   }
