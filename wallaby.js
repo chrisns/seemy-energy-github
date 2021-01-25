@@ -6,12 +6,10 @@ module.exports = function (w) {
     env: {
       type: 'node',
     },
-    testFramework: 'mocha',
+    testFramework: 'jest',
     setup: function (w) {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       require('dotenv').config();
-      const mocha = w.testFramework
-      mocha.timeout(30000)
     },
   }
 }
