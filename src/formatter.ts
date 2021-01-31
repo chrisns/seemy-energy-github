@@ -8,7 +8,8 @@ type IssuesGetResponseDataType = GetResponseDataTypeFromEndpointMethod<typeof oc
 interface RecordPullRequest {
   repo: string
   id: number
-  owner: string
+  url: string
+  holder: string
   author: string
   created_at: number
   closed_at: number
@@ -29,7 +30,8 @@ export function formatPullRequest (pull: PullRequestGetResponseDataType): Record
   return {
     repo: pull.base.repo.name,
     id: pull.number,
-    owner: pull.base.user.login,
+    url: pull.base.repo.url,
+    holder: pull.base.user.login,
     author: pull.user.login,
     commits: pull.commits,
     review_comments: pull.review_comments,
@@ -50,13 +52,14 @@ export function formatPullRequest (pull: PullRequestGetResponseDataType): Record
 interface RecordIssue {
   repo: string
   id: number
-  owner: string
+  url: string
+  holder: string
   author: string
   created_at: number
   closed_at: number
   assignees: number
   body_length: number
-  time_to_merge: number
+  time_to_close: number
   closed_by: string
   comments: number
 }
@@ -65,7 +68,8 @@ export function formatIssue (issue: IssuesGetResponseDataType): RecordIssue {
   return {
     repo: issue.repository_url.split('/').reverse()[0],
     id: issue.number,
-    owner: issue.repository_url.split('/').reverse()[1],
+    url: issue.repository_url,
+    holder: issue.repository_url.split('/').reverse()[1],
     author: issue.user.login,
     comments: issue.comments,
     closed_by: issue.closed_by ? issue.closed_by.login : '',
@@ -73,6 +77,6 @@ export function formatIssue (issue: IssuesGetResponseDataType): RecordIssue {
     closed_at: issue.closed_at ? Date.parse(issue.closed_at) : 0,
     assignees: issue.assignees.length,
     body_length: issue.body ? issue.body.length : 0,
-    time_to_merge: issue.closed_at ? Date.parse(issue.closed_at) - Date.parse(issue.created_at) : 0,
+    time_to_close: issue.closed_at ? Date.parse(issue.closed_at) - Date.parse(issue.created_at) : 0,
   }
 }
