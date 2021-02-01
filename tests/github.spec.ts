@@ -20,13 +20,17 @@ jest.mock('@octokit/rest', () => {
           },
         },
         issue: {
-          get: () => <IssuesGetResponseDataType['data']>(<unknown>issueGoodRaw),
+          get: () =>
+            <Endpoints['GET /repos/{owner}/{repo}/issues/{issue_number}']['response']['data']>(<unknown>issueGood),
         },
         pulls: {
-          list: jest.fn().mockReturnValue({ data: <PullRequestListResponseDataType['data']>pullListGoodRaw }),
+          list: jest
+            .fn()
+            .mockReturnValue({ data: <Endpoints['GET /repos/{owner}/{repo}/pulls']['response']['data']>pullListGood }),
         },
         pull: {
-          get: () => <PullRequestGetResponseDataType['data']>(<unknown>pullGoodRaw),
+          get: () =>
+            <Endpoints['GET /repos/{owner}/{repo}/pulls/{pull_number}']['response']['data']>(<unknown>pullGood),
         },
       }
     }),
@@ -48,15 +52,11 @@ import 'jest-dynalite/withDb'
 import { Octokit } from '@octokit/rest'
 import SQS from 'aws-sdk/clients/sqs'
 
-import pullGoodRaw from './fixtures/pull-good.json'
-import pullListGoodRaw from './fixtures/pulllist-good.json'
-import issueGoodRaw from './fixtures/issue-good.json'
+import pullGood from './fixtures/pull-good.json'
+import pullListGood from './fixtures/pulllist-good.json'
+import issueGood from './fixtures/issue-good.json'
 
 import { Endpoints } from '@octokit/types'
-
-type PullRequestGetResponseDataType = Endpoints['GET /repos/{owner}/{repo}/pulls/{pull_number}']['response']
-type PullRequestListResponseDataType = Endpoints['GET /repos/{owner}/{repo}/pulls']['response']
-type IssuesGetResponseDataType = Endpoints['GET /repos/{owner}/{repo}/issues/{issue_number}']['response']
 
 import * as mod from '../src/github'
 const octokit = new Octokit()
@@ -68,8 +68,8 @@ describe('github', () => {
       .get({
         TableName: 'pull',
         Key: {
-          url: pullGoodRaw.base.repo.url,
-          id: pullGoodRaw.number,
+          url: pullGood.base.repo.url,
+          id: pullGood.number,
         },
       })
       .promise()
@@ -82,8 +82,8 @@ describe('github', () => {
       .get({
         TableName: 'issue',
         Key: {
-          url: issueGoodRaw.repository_url,
-          id: issueGoodRaw.number,
+          url: issueGood.repository_url,
+          id: issueGood.number,
         },
       })
       .promise()
@@ -97,7 +97,7 @@ describe('github', () => {
   test('Map pull request from list item to a SQS message', async () => {
     await expect(
       mod.pullListPRtoSQS(
-        <Endpoints['GET /repos/{owner}/{repo}/pulls']['response']['data'][0]>(<unknown>pullListGoodRaw[0]),
+        <Endpoints['GET /repos/{owner}/{repo}/pulls']['response']['data'][0]>(<unknown>pullListGood[0]),
       ),
     ).resolves.toMatchSnapshot()
     return expect(mod.sqsClient.sendMessage).toMatchSnapshot()
