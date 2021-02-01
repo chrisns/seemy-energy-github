@@ -34,7 +34,6 @@ export async function queryRepo (owner: string, repo: string, octokit: Octokit) 
   for await (const pulls of octokit.paginate.iterator(octokit.pulls.list, {
     owner: owner,
     repo: repo,
-    head: true,
   })) {
     return await pulls.data.map(pullListPRtoSQS)
   }
