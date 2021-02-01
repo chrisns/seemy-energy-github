@@ -28,9 +28,6 @@ interface sqsPullMessage {
 }
 
 export async function queryRepo (owner: string, repo: string, octokit: Octokit) {
-  // paginate through pull requests list
-  // queue each pull request to be queried
-  // const octokit = Octokit.plugin(paginateRest)
   for await (const pulls of octokit.paginate.iterator(octokit.pulls.list, {
     owner: owner,
     repo: repo,

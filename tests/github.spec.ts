@@ -3,13 +3,6 @@ jest.mock('@octokit/rest', () => {
     Octokit: jest.fn().mockImplementation(() => {
       return {
         plugin: jest.fn().mockReturnThis(),
-        paaginate: jest.fn().mockReturnThis(),
-        // (){
-        //   * [Symbol.iterator] (func, args) {
-        //     yield func(args)
-        //   },
-        //   aaiterator: (func, args) => func(args),
-        // },
         paginate: {
           iterator: (func, args) => {
             return {
