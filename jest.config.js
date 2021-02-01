@@ -12,6 +12,7 @@ module.exports = {
     '**/*.ts',
     '**/*.js',
     '!.**',
+    '!.*/**',
     '!tests/**',
     '!node_modules/**',
     '!coverage/**',
