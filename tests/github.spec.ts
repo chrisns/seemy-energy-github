@@ -73,28 +73,7 @@ describe('github', () => {
         },
       })
       .promise()
-    return expect(get).toStrictEqual({
-      Item: {
-        additions: 10,
-        assignees: 9,
-        author: 'palnabarun',
-        url: 'https://api.github.com/repos/kubernetes/k8s.io',
-        body_length: 336,
-        changed_files: 2,
-        closed_at: 1610132191000,
-        commits: 1,
-        created_at: 1610130783000,
-        deletions: 5,
-        holder: 'kubernetes',
-        id: 1513,
-        merged_at: 1610132190000,
-        merged_by: 'k8s-ci-robot',
-        repo: 'k8s.io',
-        review_comments: 0,
-        reviewers: 2,
-        time_to_merge: 1407000,
-      },
-    })
+    return expect(get).toMatchSnapshot()
   })
 
   test('ETLIssue queries issue, persists to dynamodb', async () => {
@@ -108,22 +87,7 @@ describe('github', () => {
         },
       })
       .promise()
-    return expect(get).toStrictEqual({
-      Item: {
-        assignees: 0,
-        author: 'mikksoone',
-        url: 'https://api.github.com/repos/kubernetes/kubernetes',
-        body_length: 2733,
-        closed_at: 1550815042000,
-        created_at: 1512598487000,
-        closed_by: 'thockin',
-        holder: 'kubernetes',
-        comments: 253,
-        id: 56903,
-        repo: 'kubernetes',
-        time_to_close: 38216555000,
-      },
-    })
+    return expect(get).toMatchSnapshot()
   })
 
   test('Query repo, push all pull requests into SQS', async () => {
@@ -135,7 +99,7 @@ describe('github', () => {
       mod.pullListPRtoSQS(
         <Endpoints['GET /repos/{owner}/{repo}/pulls']['response']['data'][0]>(<unknown>pullListGoodRaw[0]),
       ),
-    ).resolves.toStrictEqual({ MD5OfMessageBody: 'foobar' })
+    ).resolves.toMatchSnapshot()
     return expect(mod.sqsClient.sendMessage).toMatchSnapshot()
   })
 })
