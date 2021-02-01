@@ -1,0 +1,1750 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`github Map pull request from list item to a SQS message 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+        "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+        "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+        "QueueUrl": undefined,
+      },
+    ],
+    Array [
+      Object {
+        "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1534,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+        "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1534",
+        "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+        "QueueUrl": undefined,
+      },
+    ],
+    Array [
+      Object {
+        "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1512,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+        "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1512",
+        "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+        "QueueUrl": undefined,
+      },
+    ],
+    Array [
+      Object {
+        "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1474,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+        "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1474",
+        "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+        "QueueUrl": undefined,
+      },
+    ],
+    Array [
+      Object {
+        "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1425,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+        "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1425",
+        "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+        "QueueUrl": undefined,
+      },
+    ],
+    Array [
+      Object {
+        "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1016,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+        "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1016",
+        "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+        "QueueUrl": undefined,
+      },
+    ],
+    Array [
+      Object {
+        "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":990,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+        "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/990",
+        "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+        "QueueUrl": undefined,
+      },
+    ],
+    Array [
+      Object {
+        "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":660,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+        "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/660",
+        "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+        "QueueUrl": undefined,
+      },
+    ],
+    Array [
+      Object {
+        "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":326,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+        "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/326",
+        "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+        "QueueUrl": undefined,
+      },
+    ],
+    Array [
+      Object {
+        "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+        "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+        "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+        "QueueUrl": undefined,
+      },
+    ],
+  ],
+  "results": Array [
+    Object {
+      "type": "return",
+      "value": Object {
+        "promise": [MockFunction] {
+          "calls": Array [
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+          ],
+        },
+        "sendMessage": [MockFunction] {
+          "calls": Array [
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1534,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1534",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1512,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1512",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1474,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1474",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1425,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1425",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1016,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1016",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":990,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/990",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":660,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/660",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":326,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/326",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+          ],
+          "results": [Circular],
+        },
+      },
+    },
+    Object {
+      "type": "return",
+      "value": Object {
+        "promise": [MockFunction] {
+          "calls": Array [
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+          ],
+        },
+        "sendMessage": [MockFunction] {
+          "calls": Array [
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1534,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1534",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1512,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1512",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1474,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1474",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1425,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1425",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1016,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1016",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":990,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/990",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":660,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/660",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":326,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/326",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+          ],
+          "results": [Circular],
+        },
+      },
+    },
+    Object {
+      "type": "return",
+      "value": Object {
+        "promise": [MockFunction] {
+          "calls": Array [
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+          ],
+        },
+        "sendMessage": [MockFunction] {
+          "calls": Array [
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1534,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1534",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1512,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1512",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1474,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1474",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1425,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1425",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1016,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1016",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":990,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/990",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":660,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/660",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":326,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/326",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+          ],
+          "results": [Circular],
+        },
+      },
+    },
+    Object {
+      "type": "return",
+      "value": Object {
+        "promise": [MockFunction] {
+          "calls": Array [
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+          ],
+        },
+        "sendMessage": [MockFunction] {
+          "calls": Array [
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1534,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1534",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1512,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1512",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1474,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1474",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1425,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1425",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1016,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1016",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":990,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/990",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":660,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/660",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":326,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/326",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+          ],
+          "results": [Circular],
+        },
+      },
+    },
+    Object {
+      "type": "return",
+      "value": Object {
+        "promise": [MockFunction] {
+          "calls": Array [
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+          ],
+        },
+        "sendMessage": [MockFunction] {
+          "calls": Array [
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1534,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1534",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1512,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1512",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1474,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1474",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1425,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1425",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1016,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1016",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":990,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/990",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":660,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/660",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":326,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/326",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+          ],
+          "results": [Circular],
+        },
+      },
+    },
+    Object {
+      "type": "return",
+      "value": Object {
+        "promise": [MockFunction] {
+          "calls": Array [
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+          ],
+        },
+        "sendMessage": [MockFunction] {
+          "calls": Array [
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1534,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1534",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1512,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1512",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1474,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1474",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1425,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1425",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1016,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1016",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":990,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/990",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":660,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/660",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":326,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/326",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+          ],
+          "results": [Circular],
+        },
+      },
+    },
+    Object {
+      "type": "return",
+      "value": Object {
+        "promise": [MockFunction] {
+          "calls": Array [
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+          ],
+        },
+        "sendMessage": [MockFunction] {
+          "calls": Array [
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1534,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1534",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1512,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1512",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1474,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1474",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1425,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1425",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1016,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1016",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":990,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/990",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":660,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/660",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":326,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/326",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+          ],
+          "results": [Circular],
+        },
+      },
+    },
+    Object {
+      "type": "return",
+      "value": Object {
+        "promise": [MockFunction] {
+          "calls": Array [
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+          ],
+        },
+        "sendMessage": [MockFunction] {
+          "calls": Array [
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1534,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1534",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1512,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1512",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1474,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1474",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1425,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1425",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1016,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1016",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":990,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/990",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":660,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/660",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":326,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/326",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+          ],
+          "results": [Circular],
+        },
+      },
+    },
+    Object {
+      "type": "return",
+      "value": Object {
+        "promise": [MockFunction] {
+          "calls": Array [
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+          ],
+        },
+        "sendMessage": [MockFunction] {
+          "calls": Array [
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1534,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1534",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1512,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1512",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1474,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1474",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1425,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1425",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1016,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1016",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":990,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/990",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":660,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/660",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":326,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/326",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+          ],
+          "results": [Circular],
+        },
+      },
+    },
+    Object {
+      "type": "return",
+      "value": Object {
+        "promise": [MockFunction] {
+          "calls": Array [
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "MD5OfMessageBody": "foobar",
+              },
+            },
+          ],
+        },
+        "sendMessage": [MockFunction] {
+          "calls": Array [
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1534,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1534",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1512,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1512",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1474,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1474",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1425,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1425",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1016,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1016",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":990,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/990",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":660,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/660",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":326,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/326",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+            Array [
+              Object {
+                "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"https://api.github.com/repos/kubernetes/k8s.io\\",\\"installation_id\\":1234}",
+                "MessageDeduplicationId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io/1596",
+                "MessageGroupId": "kubernetes/https://api.github.com/repos/kubernetes/k8s.io",
+                "QueueUrl": undefined,
+              },
+            ],
+          ],
+          "results": [Circular],
+        },
+      },
+    },
+  ],
+}
+`;

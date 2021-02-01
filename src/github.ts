@@ -1,41 +1,62 @@
 import { Octokit } from '@octokit/rest'
-// import { GetResponseDataTypeFromEndpointMethod } from '@octokit/types'
-
-// import paginateRest from '@octokit/plugin-paginate-rest'
 import { createAppAuth } from '@octokit/auth-app'
 import { formatPullRequest, formatIssue } from './formatter'
+const { paginateRest } = require('@octokit/plugin-paginate-rest')
+import { Endpoints } from '@octokit/types'
 
-// const MyOctokit = Octokit.plugin(paginateRest)
-// const octokit =
+import SQS from 'aws-sdk/clients/sqs'
 
-export function getAuthenticatedOctokit (): Octokit {
+import DynamoDB from 'aws-sdk/clients/dynamodb'
+
+export function getAuthenticatedOctokit (installationId: number): Octokit {
   return new Octokit({
     authStrategy: createAppAuth,
     auth: {
       appId: process.env.appId,
       type: 'app',
       privateKey: process.env.privateKey,
-      installationId: process.env.installationId,
+      installationId: installationId,
     },
-  })
+  }).plugin(paginateRest)
 }
 
-// type PullRequestListResponseDataType = GetResponseDataTypeFromEndpointMethod<typeof octokit.pulls.list>
+interface sqsPullMessage {
+  owner: string
+  repo: string
+  pull_number: number
+  installation_id: number
+}
 
-// export async function queryRepo (owner: string, repo: string) {
-//   // paginate through pull requests list
-//   // queue each pull request to be queried
-//   for await (const pulls of octokit.paginate.iterator(octokit.pulls.list, {
-//     owner: owner,
-//     repo: repo,
-//     state: 'closed',
-//     head: true,
-//   })) {
-//     await pulls.data.map(async pull => upsert_table(RemapPullRequestToRecordPullRequest(pull)))
-//   }
-// }
-// import DocumentClient from 'aws-sdk/lib/dynamodb/document_client'
-import DynamoDB from 'aws-sdk/clients/dynamodb'
+export async function queryRepo (owner: string, repo: string, octokit: Octokit) {
+  // paginate through pull requests list
+  // queue each pull request to be queried
+  // const octokit = Octokit.plugin(paginateRest)
+  for await (const pulls of octokit.paginate.iterator(octokit.pulls.list, {
+    owner: owner,
+    repo: repo,
+    head: true,
+  })) {
+    return await pulls.data.map(pullListPRtoSQS)
+  }
+}
+
+export async function pullListPRtoSQS (
+  pull: Endpoints['GET /repos/{owner}/{repo}/pulls']['response']['data'][0],
+): Promise<SQS.SendMessageResult> {
+  return sqsClient
+    .sendMessage({
+      MessageBody: JSON.stringify(<sqsPullMessage>{
+        owner: pull.base.user.login,
+        pull_number: pull.number,
+        repo: pull.base.repo.url,
+        installation_id: 1234,
+      }),
+      MessageDeduplicationId: `${pull.base.user.login}/${pull.base.repo.url}/${pull.number}`,
+      MessageGroupId: `${pull.base.user.login}/${pull.base.repo.url}`,
+      QueueUrl: process.env.PR_QUEUE,
+    })
+    .promise()
+}
 
 const config = {
   convertEmptyValues: true,
@@ -47,6 +68,8 @@ const config = {
 }
 
 export const documentClient = new DynamoDB.DocumentClient(config)
+
+export const sqsClient = new SQS()
 
 const upsert_table = async (payload, table) =>
   documentClient
