@@ -63,8 +63,8 @@ export async function pullListPRtoSQS (
         repo: pull.base.repo.url,
         installation_id: 1234,
       }),
-      MessageDeduplicationId: `${pull.base.user.login}/${pull.base.repo.url}/${pull.number}`,
-      MessageGroupId: `${pull.base.user.login}/${pull.base.repo.url}`,
+      MessageDeduplicationId: pull.url,
+      MessageGroupId: pull.base.repo.url,
       QueueUrl: process.env.PR_QUEUE,
     })
     .promise()
