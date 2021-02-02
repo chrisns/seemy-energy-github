@@ -19,9 +19,5 @@ module.exports = function (w) {
       require('dotenv').config()
 
     },
-    workers: {
-      initial: 1,
-      regular: 2
-    },
   }
 }
