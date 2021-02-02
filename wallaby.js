@@ -1,7 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 module.exports = function (w) {
   return {
-    files: ['*.ts', 'tests/**/*.json', 'src/**/*.ts', 'tests/jest-dynalite-config.js'],
+    files: [
+      '*.ts',
+      'tests/**/*.json',
+      'src/**/*.ts',
+      'tests/jest-dynalite-config.js',
+      'tests/fixtures.ts',
+    ],
     tests: ['tests/**/*.spec.ts'],
     env: {
       type: 'node',
