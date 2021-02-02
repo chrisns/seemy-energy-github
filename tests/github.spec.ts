@@ -40,7 +40,6 @@ import SQS from 'aws-sdk/clients/sqs'
 import fixtures from './fixtures'
 
 import * as mod from '../src/github'
-import { isTemplateLiteralToken } from 'typescript'
 
 const octokit = new Octokit()
 
