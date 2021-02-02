@@ -1,3 +1,4 @@
+import * as self from './github'
 import { Octokit } from '@octokit/rest'
 import { createAppAuth } from '@octokit/auth-app'
 import { formatPullRequest, formatIssue } from './formatter'
@@ -5,9 +6,7 @@ import { paginateRest } from '@octokit/plugin-paginate-rest'
 import { throttling } from '@octokit/plugin-throttling'
 import { retry } from '@octokit/plugin-retry'
 import { Endpoints } from '@octokit/types'
-
 import SQS from 'aws-sdk/clients/sqs'
-
 import DynamoDB from 'aws-sdk/clients/dynamodb'
 
 export function getAuthenticatedOctokit (installationId: number): Octokit {
@@ -43,13 +42,44 @@ interface sqsPullMessage {
   installation_id: number
 }
 
+interface sqsIssueMessage {
+  owner: string
+  repo: string
+  issue_number: number
+  installation_id: number
+}
+
 export async function queryRepo (owner: string, repo: string, octokit: Octokit): Promise<void> {
   for await (const pulls of octokit.paginate.iterator(octokit.pulls.list, {
     owner: owner,
     repo: repo,
   })) {
-    await pulls.data.map(pullListPRtoSQS)
+    await Promise.all(pulls.data.map(self.pullListPRtoSQS))
   }
+  for await (const issues of octokit.paginate.iterator(octokit.issues.list, {
+    owner: owner,
+    repo: repo,
+  })) {
+    await issues.data.map(self.issueListPRtoSQS)
+  }
+}
+
+export async function issueListPRtoSQS (
+  issue: Endpoints['GET /repos/{owner}/{repo}/issues']['response']['data'][0],
+): Promise<SQS.SendMessageResult> {
+  return sqsClient
+    .sendMessage({
+      MessageBody: JSON.stringify(<sqsIssueMessage>{
+        owner: issue.repository_url.split('/').reverse()[0],
+        issue_number: issue.number,
+        repo: issue.repository_url.split('/').reverse()[1],
+        installation_id: 1234,
+      }),
+      MessageDeduplicationId: issue.url,
+      MessageGroupId: issue.repository_url,
+      QueueUrl: process.env.ISSUE_QUEUE,
+    })
+    .promise()
 }
 
 export async function pullListPRtoSQS (

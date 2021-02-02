@@ -10,7 +10,6 @@ jest.mock('@octokit/rest', () => {
   return {
     Octokit: jest.fn().mockImplementation(() => {
       return {
-        plugin: jest.fn().mockReturnThis(),
         paginate: {
           iterator: (func, args) => {
             return {
@@ -20,64 +19,42 @@ jest.mock('@octokit/rest', () => {
             }
           },
         },
-        issue: {
-          get: () => fixtures.issueGood,
+        issues: {
+          list: jest.fn().mockReturnValue({
+            data: fixtures.issueListGood,
+          }),
         },
         pulls: {
           list: jest.fn().mockReturnValue({
             data: fixtures.pullListGood,
           }),
         },
-        pull: {
-          get: () => fixtures.pullGood,
-        },
       }
     }),
   }
 })
 
-import { setup } from 'jest-dynalite'
-setup(__dirname)
-import 'jest-dynalite/withDb'
 import { Octokit } from '@octokit/rest'
 import SQS from 'aws-sdk/clients/sqs'
 
 import fixtures from './fixtures'
 
 import * as mod from '../src/github'
+import { isTemplateLiteralToken } from 'typescript'
+
 const octokit = new Octokit()
 
 describe('github', () => {
-  test('ETLPullRequest queries pull request, persists to dynamodb', async () => {
-    await expect(mod.ETLPullRequest('kubernetes', 'k8s.io', 1513, octokit)).resolves.toBeUndefined()
-    const get = await mod.documentClient
-      .get({
-        TableName: 'pull',
-        Key: {
-          url: fixtures.pullGood.base.repo.url,
-          id: fixtures.pullGood.number,
-        },
-      })
-      .promise()
-    return expect(get).toMatchSnapshot()
-  })
-
-  test('ETLIssue queries issue, persists to dynamodb', async () => {
-    await expect(mod.ETLIssue('kubernetes', 'kubernetes', 56903, octokit)).resolves.toBeUndefined()
-    const get = await mod.documentClient
-      .get({
-        TableName: 'issue',
-        Key: {
-          url: fixtures.issueGood.repository_url,
-          id: fixtures.issueGood.number,
-        },
-      })
-      .promise()
-    return expect(get).toMatchSnapshot()
-  })
-
   test('Query repo, push all pull requests into SQS', async () => {
-    await expect(mod.queryRepo('foo', 'bar', octokit))
+    const issueListPRtoSQS = jest.spyOn(mod, 'issueListPRtoSQS')
+    const pullListPRtoSQS = jest.spyOn(mod, 'pullListPRtoSQS')
+
+    await expect(mod.queryRepo('foo', 'bar', octokit)).resolves.toBeUndefined()
+    await expect(pullListPRtoSQS.mock.calls).toMatchSnapshot()
+    await expect(issueListPRtoSQS.mock.calls).toMatchSnapshot()
+
+    issueListPRtoSQS.mockRestore()
+    pullListPRtoSQS.mockRestore()
   })
 
   test('Map pull request from list item to a SQS message', async () => {

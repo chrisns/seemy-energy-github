@@ -17,10 +17,11 @@ module.exports = function (w) {
     setup: function (w) {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       require('dotenv').config()
+
     },
     workers: {
       initial: 1,
-      regular: 1
+      regular: 2
     },
   }
 }
