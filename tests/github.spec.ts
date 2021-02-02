@@ -44,8 +44,6 @@ import SQS from 'aws-sdk/clients/sqs'
 
 import fixtures from './fixtures'
 
-import { Endpoints } from '@octokit/types'
-
 import * as mod from '../src/github'
 const octokit = new Octokit()
 

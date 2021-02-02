@@ -43,12 +43,12 @@ interface sqsPullMessage {
   installation_id: number
 }
 
-export async function queryRepo (owner: string, repo: string, octokit: Octokit) {
+export async function queryRepo (owner: string, repo: string, octokit: Octokit): Promise<void> {
   for await (const pulls of octokit.paginate.iterator(octokit.pulls.list, {
     owner: owner,
     repo: repo,
   })) {
-    return await pulls.data.map(pullListPRtoSQS)
+    await pulls.data.map(pullListPRtoSQS)
   }
 }
 
