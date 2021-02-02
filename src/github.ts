@@ -1,7 +1,9 @@
 import { Octokit } from '@octokit/rest'
 import { createAppAuth } from '@octokit/auth-app'
 import { formatPullRequest, formatIssue } from './formatter'
-const { paginateRest } = require('@octokit/plugin-paginate-rest')
+import { paginateRest } from '@octokit/plugin-paginate-rest'
+import { throttling } from '@octokit/plugin-throttling'
+import { retry } from '@octokit/plugin-retry'
 import { Endpoints } from '@octokit/types'
 
 import SQS from 'aws-sdk/clients/sqs'
@@ -9,7 +11,8 @@ import SQS from 'aws-sdk/clients/sqs'
 import DynamoDB from 'aws-sdk/clients/dynamodb'
 
 export function getAuthenticatedOctokit (installationId: number): Octokit {
-  return new Octokit({
+  const MyOctokit = Octokit.plugin(paginateRest, throttling, retry)
+  const octokit = new MyOctokit({
     authStrategy: createAppAuth,
     auth: {
       appId: process.env.appId,
@@ -17,7 +20,20 @@ export function getAuthenticatedOctokit (installationId: number): Octokit {
       privateKey: process.env.privateKey,
       installationId: installationId,
     },
-  }).plugin(paginateRest)
+    throttle: {
+      onRateLimit: (retryAfter, options) => {
+        octokit.log.warn(`Request quota exhausted for request ${options.method} ${options.url}`)
+        if (options.request.retryCount === 0) {
+          octokit.log.info(`Retrying after ${retryAfter} seconds!`)
+          return true
+        }
+      },
+      onAbuseLimit: (retryAfter, options) => {
+        octokit.log.error(`Abuse detected for request ${options.method} ${options.url}`)
+      },
+    },
+  })
+  return octokit
 }
 
 interface sqsPullMessage {
