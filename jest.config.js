@@ -8,6 +8,7 @@ module.exports = {
   coverageReporters: ['lcovonly', 'text'],
   collectCoverage: true,
   coverageDirectory: 'coverage',
+  testTimeout: 10 * 1000,
   collectCoverageFrom: [
     '**/*.ts',
     '**/*.js',
