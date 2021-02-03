@@ -16,28 +16,28 @@ import { getAuthenticatedOctokit, ETLPullRequest, ETLIssue } from '../src/github
 describe('inputHandler', () => {
   test('sqsPRQueueHandler', async () => {
     await expect(mod.sqsPRQueueHandler(fixtures.pullSqsEvent)).resolves.toBeUndefined()
-    // @ts-ignore
+    // @ts-expect-error mocked
     expect(getAuthenticatedOctokit.mock.calls).toMatchSnapshot()
 
-    // @ts-ignore
+    // @ts-expect-error mocked
     return expect(ETLPullRequest.mock.calls).toMatchSnapshot()
   })
 
   test('sqsIssueQueueHandler', async () => {
     await expect(mod.sqsIssueQueueHandler(fixtures.issueSqsEvent)).resolves.toBeUndefined()
-    // @ts-ignore
+    // @ts-expect-error mocked
     expect(getAuthenticatedOctokit.mock.calls).toMatchSnapshot()
 
-    // @ts-ignore
+    // @ts-expect-error mocked
     return expect(ETLIssue.mock.calls).toMatchSnapshot()
   })
 
   test('httpQueryRepoHandler', async () => {
     await expect(mod.httpQueryRepoHandler(fixtures.httpAPIRepoQueryEvent)).resolves.toBeUndefined()
-    // @ts-ignore
+    // @ts-expect-error mocked
     expect(getAuthenticatedOctokit.mock.calls).toMatchSnapshot()
 
-    // @ts-ignore
+    // @ts-expect-error mocked
     return expect(ETLPullRequest.mock.calls).toMatchSnapshot()
   })
 })
