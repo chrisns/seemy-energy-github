@@ -1,5 +1,4 @@
 import * as github from './github'
-// import SQS from 'aws-sdk/clients/sqs'
 import { SQSEvent, APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from 'aws-lambda'
 
 export async function sqsPRQueueHandler (event: SQSEvent): Promise<void> {
