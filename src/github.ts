@@ -35,14 +35,14 @@ export function getAuthenticatedOctokit (installationId: number): Octokit {
   return octokit
 }
 
-interface sqsPullMessage {
+export interface sqsPullMessage {
   owner: string
   repo: string
   pull_number: number
   installation_id: number
 }
 
-interface sqsIssueMessage {
+export interface sqsIssueMessage {
   owner: string
   repo: string
   issue_number: number

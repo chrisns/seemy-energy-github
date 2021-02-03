@@ -1,0 +1,62 @@
+service: seemy-github
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: eu-west-2
+  stage: production
+  tags:
+    seemyintegration: github
+    seemycomponent: vcs
+    service: seemy
+
+  environment:
+    PR_QUEUE:
+      Fn::GetAtt:
+        - PullRequestQueue
+        - Arn
+    ISSUE_QUEUE:
+      Fn::GetAtt:
+        - IssueQueue
+        - Arn
+
+functions:
+  queryPR:
+    handler: src/inputHandler.sqsPRQueueHandler
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - PullRequestQueue
+              - Arn
+
+  queryIssue:
+    handler: src/inputHandler.sqsIssueQueueHandler
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - IssueQueue
+              - Arn
+
+  queryRepo:
+    handler: src/inputHandler.httpQueryRepoHandler
+    events:
+      - httpApi:
+          path: /queryrepo/{installationId}{owner}/{repo}
+          method: GET
+
+resources:
+  Resources:
+    PullRequestQueue:
+      Type: "AWS::SQS::Queue"
+      Properties:
+        QueueName: seemyGithubPullRequest
+        FifoQueue: true
+    IssueQueue:
+      Type: "AWS::SQS::Queue"
+      Properties:
+        QueueName: seemyGithubIssue
+        FifoQueue: true

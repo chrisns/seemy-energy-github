@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`inputHandler httpQueryRepoHandler 1`] = `
+Array [
+  Array [
+    1223,
+  ],
+  Array [
+    1222,
+  ],
+  Array [
+    1223,
+  ],
+  Array [
+    1222,
+  ],
+  Array [
+    123,
+  ],
+]
+`;
+
+exports[`inputHandler httpQueryRepoHandler 2`] = `
+Array [
+  Array [
+    "foo",
+    "bar",
+    123,
+    [Function],
+  ],
+  Array [
+    "bar",
+    "foo",
+    124,
+    [Function],
+  ],
+  Array [
+    "foo",
+    "bar",
+    123,
+    [Function],
+  ],
+  Array [
+    "bar",
+    "foo",
+    124,
+    [Function],
+  ],
+]
+`;
+
+exports[`inputHandler sqsIssueQueueHandler 1`] = `
+Array [
+  Array [
+    1223,
+  ],
+  Array [
+    1222,
+  ],
+  Array [
+    1223,
+  ],
+  Array [
+    1222,
+  ],
+]
+`;
+
+exports[`inputHandler sqsIssueQueueHandler 2`] = `Array []`;
+
+exports[`inputHandler sqsPRQueueHandler 1`] = `
+Array [
+  Array [
+    1223,
+  ],
+  Array [
+    1222,
+  ],
+]
+`;
+
+exports[`inputHandler sqsPRQueueHandler 2`] = `
+Array [
+  Array [
+    "foo",
+    "bar",
+    123,
+    [Function],
+  ],
+  Array [
+    "bar",
+    "foo",
+    124,
+    [Function],
+  ],
+]
+`;
