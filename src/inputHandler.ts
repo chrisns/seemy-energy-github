@@ -11,7 +11,7 @@ export async function sqsPRQueueHandler (event: SQSEvent): Promise<void> {
   return
 }
 
-export async function sqsIssueQueueHandler (event: SQSEvent) {
+export async function sqsIssueQueueHandler (event: SQSEvent): Promise<void> {
   await event.Records.forEach(async record => {
     const body = <github.sqsIssueMessage>JSON.parse(record.body)
     const octokit = github.getAuthenticatedOctokit(body.installation_id)
