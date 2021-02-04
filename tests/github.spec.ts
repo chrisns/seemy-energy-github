@@ -1,8 +1,10 @@
+const sendmesage = jest.fn().mockReturnValue({
+  promise: jest.fn().mockReturnValue(<SQS.SendMessageResult>{ MD5OfMessageBody: 'foobar' }),
+})
 jest.mock('aws-sdk/clients/sqs', () => {
   return jest.fn().mockImplementation(() => {
     return {
-      sendMessage: jest.fn().mockReturnThis(),
-      promise: jest.fn().mockReturnValue(<SQS.SendMessageResult>{ MD5OfMessageBody: 'foobar' }),
+      sendMessage: sendmesage,
     }
   })
 })
@@ -21,12 +23,12 @@ jest.mock('@octokit/rest', () => {
         },
         issues: {
           list: jest.fn().mockReturnValue({
-            data: fixtures.issueListGood,
+            data: fixtures.issueListGood.slice(0, 3),
           }),
         },
         pulls: {
           list: jest.fn().mockReturnValue({
-            data: fixtures.pullListGood,
+            data: fixtures.pullListGood.slice(0, 3),
           }),
         },
       }
@@ -44,20 +46,31 @@ import * as mod from '../src/github'
 const octokit = new Octokit()
 
 describe('github', () => {
-  test('Query repo, push all pull requests into SQS', async () => {
-    const issueListPRtoSQS = jest.spyOn(mod, 'issueListPRtoSQS')
-    const pullListPRtoSQS = jest.spyOn(mod, 'pullListPRtoSQS')
-
-    await expect(mod.queryRepo('foo', 'bar', octokit)).resolves.toBeUndefined()
-    await expect(pullListPRtoSQS.mock.calls).toMatchSnapshot()
-    await expect(issueListPRtoSQS.mock.calls).toMatchSnapshot()
-
-    issueListPRtoSQS.mockRestore()
-    pullListPRtoSQS.mockRestore()
+  beforeEach(() => {
+    sendmesage.mockClear()
+  })
+  test('Map pull request from list item to a SQS message', async () => {
+    process.env.PR_QUEUE = 'something'
+    await expect(mod.pullListPRtoSQS(fixtures.pullListGood[0], 1234)).resolves.toMatchSnapshot()
+    return expect(sendmesage.mock.calls[0]).toMatchSnapshot()
   })
 
-  test('Map pull request from list item to a SQS message', async () => {
-    await expect(mod.pullListPRtoSQS(fixtures.pullListGood[0])).resolves.toMatchSnapshot()
-    return expect(mod.sqsClient.sendMessage).toMatchSnapshot()
+  test('Map issue from list item to a SQS message', async () => {
+    process.env.ISSUE_QUEUE = 'something'
+    await expect(mod.issueListIssuetoSQS(fixtures.issueListGood[0], 1234)).resolves.toMatchSnapshot()
+    return expect(sendmesage.mock.calls[0]).toMatchSnapshot()
+  })
+
+  test('Query repo, push all into SQS', async () => {
+    const issueListIssuetoSQS = jest.spyOn(mod, 'issueListIssuetoSQS')
+    const pullListPRtoSQS = jest.spyOn(mod, 'pullListPRtoSQS')
+
+    await expect(mod.queryRepo('foo', 'bar', octokit, 1234)).resolves.toBeUndefined()
+
+    await expect(pullListPRtoSQS.mock.calls[0]).toMatchSnapshot()
+    await expect(issueListIssuetoSQS.mock.calls[0]).toMatchSnapshot()
+
+    issueListIssuetoSQS.mockRestore()
+    pullListPRtoSQS.mockRestore()
   })
 })

@@ -17,27 +17,27 @@ describe('inputHandler', () => {
   test('sqsPRQueueHandler', async () => {
     await expect(mod.sqsPRQueueHandler(fixtures.pullSqsEvent)).resolves.toBeUndefined()
     // @ts-expect-error mocked
-    expect(getAuthenticatedOctokit.mock.calls).toMatchSnapshot()
+    expect(getAuthenticatedOctokit.mock.calls[0]).toMatchSnapshot()
 
     // @ts-expect-error mocked
-    return expect(ETLPullRequest.mock.calls).toMatchSnapshot()
+    return expect(ETLPullRequest.mock.calls[0]).toMatchSnapshot()
   })
 
   test('sqsIssueQueueHandler', async () => {
     await expect(mod.sqsIssueQueueHandler(fixtures.issueSqsEvent)).resolves.toBeUndefined()
     // @ts-expect-error mocked
-    expect(getAuthenticatedOctokit.mock.calls).toMatchSnapshot()
+    expect(getAuthenticatedOctokit.mock.calls[0]).toMatchSnapshot()
 
     // @ts-expect-error mocked
-    return expect(ETLIssue.mock.calls).toMatchSnapshot()
+    return expect(ETLIssue.mock.calls[0]).toMatchSnapshot()
   })
 
   test('httpQueryRepoHandler', async () => {
     await expect(mod.httpQueryRepoHandler(fixtures.httpAPIRepoQueryEvent)).resolves.toBeUndefined()
     // @ts-expect-error mocked
-    expect(getAuthenticatedOctokit.mock.calls).toMatchSnapshot()
+    expect(getAuthenticatedOctokit.mock.calls[0]).toMatchSnapshot()
 
     // @ts-expect-error mocked
-    return expect(ETLPullRequest.mock.calls).toMatchSnapshot()
+    return expect(ETLPullRequest.mock.calls[0]).toMatchSnapshot()
   })
 })

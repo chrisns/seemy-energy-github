@@ -49,33 +49,40 @@ export interface sqsIssueMessage {
   installation_id: number
 }
 
-export async function queryRepo (owner: string, repo: string, octokit: Octokit): Promise<void> {
+export async function queryRepo (owner: string, repo: string, octokit: Octokit, installationId: Number): Promise<void> {
   for await (const pulls of octokit.paginate.iterator(octokit.pulls.list, {
     owner: owner,
     repo: repo,
     // per_page: 100,
   })) {
-    await Promise.all(pulls.data.map(self.pullListPRtoSQS))
+    await Promise.all(pulls.data.map(pull => self.pullListPRtoSQS(pull, installationId)))
   }
   for await (const issues of octokit.paginate.iterator(octokit.issues.list, {
     owner: owner,
     repo: repo,
     // per_page: 100,
   })) {
-    await issues.data.map(self.issueListPRtoSQS)
+    await issues.data.map(issue =>
+      self.issueListIssuetoSQS(
+        <Endpoints['GET /repos/{owner}/{repo}/issues']['response']['data'][0]>issue,
+        installationId,
+      ),
+    )
   }
 }
 
-export async function issueListPRtoSQS (
+export async function issueListIssuetoSQS (
   issue: Endpoints['GET /repos/{owner}/{repo}/issues']['response']['data'][0],
+  installationId: Number,
 ): Promise<SQS.SendMessageResult> {
-  return sqsClient
+  // issue.labels[0].
+  return self.sqsClient
     .sendMessage({
       MessageBody: JSON.stringify(<sqsIssueMessage>{
         owner: issue.repository_url.split('/').reverse()[0],
         issue_number: issue.number,
         repo: issue.repository_url.split('/').reverse()[1],
-        installation_id: 1234,
+        installation_id: installationId,
       }),
       MessageDeduplicationId: issue.url,
       MessageGroupId: issue.repository_url,
@@ -87,14 +94,15 @@ export async function issueListPRtoSQS (
 
 export async function pullListPRtoSQS (
   pull: Endpoints['GET /repos/{owner}/{repo}/pulls']['response']['data'][0],
+  installationId: Number,
 ): Promise<SQS.SendMessageResult> {
-  return sqsClient
+  return self.sqsClient
     .sendMessage({
       MessageBody: JSON.stringify(<sqsPullMessage>{
         owner: pull.base && pull.base.user && pull.base.user.login ? pull.base.user.login : 'unknown',
         pull_number: pull.number,
         repo: pull.base && pull.base.repo && pull.base.repo.name ? pull.base.repo.name : 'unknown',
-        installation_id: 1234,
+        installation_id: installationId,
       }),
       MessageDeduplicationId: pull.url,
       MessageGroupId: pull.base.repo.url,

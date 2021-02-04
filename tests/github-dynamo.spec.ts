@@ -3,10 +3,16 @@ jest.mock('@octokit/rest', () => {
     Octokit: jest.fn().mockImplementation(() => {
       return {
         issues: {
-          get: () => fixtures.issueGood,
+          get: () => {
+            return { data: fixtures.issueGood }
+          },
         },
         pulls: {
-          get: () => fixtures.pullGood,
+          get: () => {
+            return {
+              data: fixtures.pullGood,
+            }
+          },
         },
       }
     }),

@@ -20,7 +20,8 @@ export async function sqsIssueQueueHandler (event: SQSEvent): Promise<void> {
 }
 
 export async function httpQueryRepoHandler (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> {
-  const octokit = github.getAuthenticatedOctokit(Number(event.pathParameters.installationId))
-  await github.queryRepo(event.pathParameters.owner, event.pathParameters.repo, octokit)
+  const installationId = Number(event.pathParameters.installation_id)
+  const octokit = github.getAuthenticatedOctokit(installationId)
+  await github.queryRepo(event.pathParameters.owner, event.pathParameters.repo, octokit, installationId)
   return
 }

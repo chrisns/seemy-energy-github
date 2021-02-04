@@ -2,96 +2,38 @@
 
 exports[`inputHandler httpQueryRepoHandler 1`] = `
 Array [
-  Array [
-    1223,
-  ],
-  Array [
-    1222,
-  ],
-  Array [
-    1223,
-  ],
-  Array [
-    1222,
-  ],
-  Array [
-    123,
-  ],
+  1223,
 ]
 `;
 
 exports[`inputHandler httpQueryRepoHandler 2`] = `
 Array [
-  Array [
-    "foo",
-    "bar",
-    123,
-    [Function],
-  ],
-  Array [
-    "bar",
-    "foo",
-    124,
-    [Function],
-  ],
-  Array [
-    "foo",
-    "bar",
-    123,
-    [Function],
-  ],
-  Array [
-    "bar",
-    "foo",
-    124,
-    [Function],
-  ],
+  "foo",
+  "bar",
+  123,
+  [Function],
 ]
 `;
 
 exports[`inputHandler sqsIssueQueueHandler 1`] = `
 Array [
-  Array [
-    1223,
-  ],
-  Array [
-    1222,
-  ],
-  Array [
-    1223,
-  ],
-  Array [
-    1222,
-  ],
+  1223,
 ]
 `;
 
-exports[`inputHandler sqsIssueQueueHandler 2`] = `Array []`;
+exports[`inputHandler sqsIssueQueueHandler 2`] = `undefined`;
 
 exports[`inputHandler sqsPRQueueHandler 1`] = `
 Array [
-  Array [
-    1223,
-  ],
-  Array [
-    1222,
-  ],
+  1223,
 ]
 `;
 
 exports[`inputHandler sqsPRQueueHandler 2`] = `
 Array [
-  Array [
-    "foo",
-    "bar",
-    123,
-    [Function],
-  ],
-  Array [
-    "bar",
-    "foo",
-    124,
-    [Function],
-  ],
+  "foo",
+  "bar",
+  123,
+  [Function],
 ]
 `;
