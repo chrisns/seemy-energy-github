@@ -23,17 +23,15 @@
     "@octokit/plugin-paginate-rest": "^2.7.0",
     "@octokit/plugin-retry": "^3.0.7",
     "@octokit/plugin-throttling": "^3.4.1",
-    "@octokit/rest": "^18.0.12"
-  },
-  "optionalDependencies": {
-    "aws-sdk": "^2.824.0"
+    "@octokit/rest": "^18.1.0"
   },
   "devDependencies": {
-    "@octokit/types": "^6.2.1",
+    "@octokit/types": "^6.8.2",
     "@types/jest": "^26.0.20",
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
     "aws-lambda": "^1.0.6",
+    "aws-sdk": "^2.824.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.18.0",
     "eslint-config-prettier": "^7.2.0",
