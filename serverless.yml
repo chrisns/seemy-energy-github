@@ -31,7 +31,7 @@ provider:
         Action:
         # - dynamodb:DescribeTable
         # - dynamodb:Query
-        - dynamodb:GetItem
+        # - dynamodb:GetItem
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         Resource: 
