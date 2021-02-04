@@ -53,14 +53,14 @@ export async function queryRepo (owner: string, repo: string, octokit: Octokit, 
   for await (const pulls of octokit.paginate.iterator(octokit.pulls.list, {
     owner: owner,
     repo: repo,
-    // per_page: 100,
+    per_page: 100,
   })) {
     await Promise.all(pulls.data.map(pull => self.pullListPRtoSQS(pull, installationId)))
   }
   for await (const issues of octokit.paginate.iterator(octokit.issues.list, {
     owner: owner,
     repo: repo,
-    // per_page: 100,
+    per_page: 100,
   })) {
     await issues.data.map(issue =>
       self.issueListIssuetoSQS(
