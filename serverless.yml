@@ -2,25 +2,51 @@ service: seemy-github
 
 frameworkVersion: '2'
 
+useDotenv: true
+plugins:
+  - serverless-plugin-typescript
+
 provider:
   name: aws
   runtime: nodejs12.x
   region: eu-west-2
   stage: production
+  versionFunctions: false
   tags:
     seemyintegration: github
     seemycomponent: vcs
     service: seemy
+  iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - "sqs:SendMessage"
+        Resource: 
+          - Fn::GetAtt:
+            - PullRequestQueue
+            - Arn
+          - Fn::GetAtt:
+            - IssueQueue
+            - Arn
+      - Effect: "Allow"
+        Action:
+        # - dynamodb:DescribeTable
+        # - dynamodb:Query
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        Resource: 
+          - Fn::GetAtt:
+            - pullTable
+            - Arn
+          - Fn::GetAtt:
+            - issueTable
+            - Arn
 
   environment:
-    PR_QUEUE:
-      Fn::GetAtt:
-        - PullRequestQueue
-        - Arn
-    ISSUE_QUEUE:
-      Fn::GetAtt:
-        - IssueQueue
-        - Arn
+    PR_QUEUE: !Ref PullRequestQueue
+    ISSUE_QUEUE: !Ref IssueQueue
+    appId: ${env:appId}
+    privateKey: ${env:privateKey}
 
 functions:
   queryPR:
@@ -42,21 +68,77 @@ functions:
               - Arn
 
   queryRepo:
+    timeout: 29
     handler: src/inputHandler.httpQueryRepoHandler
     events:
       - httpApi:
-          path: /queryrepo/{installationId}{owner}/{repo}
+          path: /queryrepo/{installationId}/{owner}/{repo}
           method: GET
+
+package:
+  exclude:
+    - "tests/**"
+    - "*.md"
+    - "wallaby.js"
+    - "jest.config.js"
+    - "workspace.code-workspace/**"
+    - "package-lock.json"
+    - "node_modules/aws-sdk/**"
+    - "coverage/**"
+    - ".*"
+    - ".*/**"
 
 resources:
   Resources:
     PullRequestQueue:
-      Type: "AWS::SQS::Queue"
+      Type: AWS::SQS::Queue
       Properties:
-        QueueName: seemyGithubPullRequest
+        QueueName: seemyGithubPullRequest.fifo
         FifoQueue: true
     IssueQueue:
-      Type: "AWS::SQS::Queue"
+      Type: AWS::SQS::Queue
       Properties:
-        QueueName: seemyGithubIssue
+        QueueName: seemyGithubIssue.fifo
         FifoQueue: true
+    pullTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: pull
+        KeySchema:
+          - AttributeName: url
+            KeyType: HASH
+          - AttributeName: id
+            KeyType: RANGE
+        AttributeDefinitions:
+          - AttributeName: url
+            AttributeType: S
+          - AttributeName: id
+            AttributeType: "N"
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    issueTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: issue
+        KeySchema:
+          - AttributeName: url
+            KeyType: HASH
+          - AttributeName: id
+            KeyType: RANGE
+        AttributeDefinitions:
+          - AttributeName: url
+            AttributeType: S
+          - AttributeName: id
+            AttributeType: "N"
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+  # Outputs:
+  #   outputs:
+  #     Description: Output
+  #     Value:
+  #       'Ref': [usersTable, Arn]
+  #     Export:
+  #       Name: ${self:service}:${opt:stage}:outputs # see Fn::ImportVa

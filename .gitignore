@@ -4,3 +4,5 @@ coverage
 *.swp
 .env
 .tmp
+.build
+.serverless

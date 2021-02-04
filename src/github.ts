@@ -53,12 +53,14 @@ export async function queryRepo (owner: string, repo: string, octokit: Octokit):
   for await (const pulls of octokit.paginate.iterator(octokit.pulls.list, {
     owner: owner,
     repo: repo,
+    // per_page: 100,
   })) {
     await Promise.all(pulls.data.map(self.pullListPRtoSQS))
   }
   for await (const issues of octokit.paginate.iterator(octokit.issues.list, {
     owner: owner,
     repo: repo,
+    // per_page: 100,
   })) {
     await issues.data.map(self.issueListPRtoSQS)
   }
@@ -77,7 +79,8 @@ export async function issueListPRtoSQS (
       }),
       MessageDeduplicationId: issue.url,
       MessageGroupId: issue.repository_url,
-      QueueUrl: process.env.ISSUE_QUEUE,
+
+      QueueUrl: process.env.ISSUE_QUEUE ? process.env.ISSUE_QUEUE : 'error',
     })
     .promise()
 }
@@ -88,14 +91,14 @@ export async function pullListPRtoSQS (
   return sqsClient
     .sendMessage({
       MessageBody: JSON.stringify(<sqsPullMessage>{
-        owner: pull.base.user.login,
+        owner: pull.base && pull.base.user && pull.base.user.login ? pull.base.user.login : 'unknown',
         pull_number: pull.number,
-        repo: pull.base.repo.url,
+        repo: pull.base && pull.base.repo && pull.base.repo.name ? pull.base.repo.name : 'unknown',
         installation_id: 1234,
       }),
       MessageDeduplicationId: pull.url,
       MessageGroupId: pull.base.repo.url,
-      QueueUrl: process.env.PR_QUEUE,
+      QueueUrl: process.env.PR_QUEUE ? process.env.PR_QUEUE : 'error',
     })
     .promise()
 }
@@ -127,15 +130,19 @@ export async function ETLPullRequest (
   pull_number: number,
   octokit: Octokit,
 ): Promise<void> {
-  const pull = await octokit.pull.get({ owner, repo, pull_number })
-  const formatted = formatPullRequest(pull)
+  const pull = <Endpoints['GET /repos/{owner}/{repo}/pulls/{pull_number}']['response']>(
+    await octokit.pulls.get({ owner, repo, pull_number })
+  )
+  const formatted = formatPullRequest(pull.data)
   await upsert_table(formatted, 'pull')
   return
 }
 
 export async function ETLIssue (owner: string, repo: string, issue_number: number, octokit: Octokit): Promise<void> {
-  const issue = await octokit.issue.get({ owner, repo, issue_number })
-  const formatted = formatIssue(issue)
+  const issue = <Endpoints['GET /repos/{owner}/{repo}/issues/{issue_number}']['response']>(
+    await octokit.issues.get({ owner, repo, issue_number })
+  )
+  const formatted = formatIssue(issue.data)
   await upsert_table(formatted, 'issue')
   return
 }
