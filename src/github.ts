@@ -49,7 +49,7 @@ export interface sqsIssueMessage {
   installation_id: number
 }
 
-export async function queryRepo (owner: string, repo: string, octokit: Octokit, installationId: Number): Promise<void> {
+export async function queryRepo (owner: string, repo: string, octokit: Octokit, installationId: number): Promise<void> {
   for await (const pulls of octokit.paginate.iterator(octokit.pulls.list, {
     owner: owner,
     repo: repo,
@@ -73,7 +73,7 @@ export async function queryRepo (owner: string, repo: string, octokit: Octokit, 
 
 export async function issueListIssuetoSQS (
   issue: Endpoints['GET /repos/{owner}/{repo}/issues']['response']['data'][0],
-  installationId: Number,
+  installationId: number,
 ): Promise<SQS.SendMessageResult> {
   // issue.labels[0].
   return self.sqsClient
@@ -94,7 +94,7 @@ export async function issueListIssuetoSQS (
 
 export async function pullListPRtoSQS (
   pull: Endpoints['GET /repos/{owner}/{repo}/pulls']['response']['data'][0],
-  installationId: Number,
+  installationId: number,
 ): Promise<SQS.SendMessageResult> {
   return self.sqsClient
     .sendMessage({
