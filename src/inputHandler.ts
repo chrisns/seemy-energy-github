@@ -3,10 +3,11 @@ import * as self from './inputHandler'
 
 import { SQSEvent, APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from 'aws-lambda'
 import SQS from 'aws-sdk/clients/sqs'
+import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 
 export const sqsClient = new SQS()
 
-export async function sqsPRQueueHandler (event: SQSEvent): Promise<any> {
+export async function sqsPRQueueHandler (event: SQSEvent): Promise<Promise<DocumentClient.PutItemOutput>[]> {
   const response = event.Records.map(record => {
     const body = <github.sqsPullMessage>JSON.parse(record.body)
     const octokit = github.getAuthenticatedOctokit(body.installation_id)
@@ -15,7 +16,7 @@ export async function sqsPRQueueHandler (event: SQSEvent): Promise<any> {
   return Promise.all(response)
 }
 
-export async function sqsIssueQueueHandler (event: SQSEvent): Promise<any> {
+export async function sqsIssueQueueHandler (event: SQSEvent): Promise<Promise<DocumentClient.PutItemOutput>[]> {
   const response = event.Records.map(record => {
     const body = <github.sqsIssueMessage>JSON.parse(record.body)
     const octokit = github.getAuthenticatedOctokit(body.installation_id)
@@ -44,7 +45,7 @@ export async function httpQueryRepoHandler (event: APIGatewayProxyEventV2): Prom
     .promise()
 }
 
-export async function sqsRepoQueueHandler (event: SQSEvent): Promise<any> {
+export async function sqsRepoQueueHandler (event: SQSEvent): Promise<Promise<void>[]> {
   const response = event.Records.map(record => {
     const body = <github.sqsIssueMessage>JSON.parse(record.body)
     const octokit = github.getAuthenticatedOctokit(body.installation_id)
