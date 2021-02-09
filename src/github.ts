@@ -12,6 +12,7 @@ import DynamoDB from 'aws-sdk/clients/dynamodb'
 export function getAuthenticatedOctokit (installationId: number): Octokit {
   const MyOctokit = Octokit.plugin(paginateRest, throttling, retry)
   const octokit = new MyOctokit({
+    log: console,
     authStrategy: createAppAuth,
     auth: {
       appId: process.env.appId,
