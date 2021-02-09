@@ -143,7 +143,7 @@ export async function ETLPullRequest (
   const pull = await octokit.pulls.get({ owner, repo, pull_number })
 
   const formatted = formatPullRequest(pull.data)
-  return upsert_table(formatted, process.env.PULL_TABLE ? process.env.PULL_TABLE : 'pulls')
+  return upsert_table(formatted, process.env.PULL_TABLE ? process.env.PULL_TABLE : 'pull')
 }
 
 export async function ETLIssue (
@@ -156,5 +156,5 @@ export async function ETLIssue (
     await octokit.issues.get({ owner, repo, issue_number })
   )
   const formatted = formatIssue(issue.data)
-  return upsert_table(formatted, process.env.ISSUE_TABLE ? process.env.ISSUE_TABLE : 'issues')
+  return upsert_table(formatted, process.env.ISSUE_TABLE ? process.env.ISSUE_TABLE : 'issue')
 }
