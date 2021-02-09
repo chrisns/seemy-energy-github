@@ -98,13 +98,11 @@ resources:
     PullRequestQueue:
       Type: AWS::SQS::Queue
       Properties:
-        QueueName: seemyGithubPullRequest.fifo
-        FifoQueue: true
+        QueueName: seemyGithubPullRequest
     IssueQueue:
       Type: AWS::SQS::Queue
       Properties:
-        QueueName: seemyGithubIssue.fifo
-        FifoQueue: true
+        QueueName: seemyGithubIssue
     pullTable:
       Type: AWS::DynamoDB::Table
       Properties:

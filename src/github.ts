@@ -85,9 +85,6 @@ export async function issueListIssuetoSQS (
         repo: issue.repository_url.split('/').reverse()[1],
         installation_id: installationId,
       }),
-      MessageDeduplicationId: issue.url,
-      MessageGroupId: issue.repository_url,
-
       QueueUrl: process.env.ISSUE_QUEUE ? process.env.ISSUE_QUEUE : 'error',
     })
     .promise()
@@ -105,8 +102,6 @@ export async function pullListPRtoSQS (
         repo: pull.base && pull.base.repo && pull.base.repo.name ? pull.base.repo.name : 'unknown',
         installation_id: installationId,
       }),
-      MessageDeduplicationId: pull.url,
-      MessageGroupId: pull.base.repo.url,
       QueueUrl: process.env.PR_QUEUE ? process.env.PR_QUEUE : 'error',
     })
     .promise()
