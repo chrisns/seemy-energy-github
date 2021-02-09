@@ -17,19 +17,40 @@ Array [
 
 exports[`inputHandler sqsIssueQueueHandler 1`] = `
 Array [
-  1223,
+  undefined,
+  undefined,
 ]
 `;
 
-exports[`inputHandler sqsIssueQueueHandler 2`] = `undefined`;
-
-exports[`inputHandler sqsPRQueueHandler 1`] = `
+exports[`inputHandler sqsIssueQueueHandler 2`] = `
 Array [
   1223,
 ]
 `;
 
+exports[`inputHandler sqsIssueQueueHandler 3`] = `
+Array [
+  "foo",
+  "bar",
+  123,
+  [Function],
+]
+`;
+
+exports[`inputHandler sqsPRQueueHandler 1`] = `
+Array [
+  undefined,
+  undefined,
+]
+`;
+
 exports[`inputHandler sqsPRQueueHandler 2`] = `
+Array [
+  1223,
+]
+`;
+
+exports[`inputHandler sqsPRQueueHandler 3`] = `
 Array [
   "foo",
   "bar",

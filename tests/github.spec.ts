@@ -22,7 +22,7 @@ jest.mock('@octokit/rest', () => {
           },
         },
         issues: {
-          list: jest.fn().mockReturnValue({
+          listForRepo: jest.fn().mockReturnValue({
             data: fixtures.issueListGood.slice(0, 3),
           }),
         },

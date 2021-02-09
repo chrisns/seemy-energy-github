@@ -32,7 +32,7 @@ const octokit = new Octokit()
 
 describe('github dynamo', () => {
   test('ETLPullRequest queries pull request, persists to dynamodb', async () => {
-    await expect(mod.ETLPullRequest('kubernetes', 'k8s.io', 1513, octokit)).resolves.toBeUndefined()
+    await expect(mod.ETLPullRequest('kubernetes', 'k8s.io', 1513, octokit)).resolves.toMatchSnapshot()
     const get = await mod.documentClient
       .get({
         TableName: 'pull',
@@ -46,7 +46,7 @@ describe('github dynamo', () => {
   })
 
   test('ETLIssue queries issue, persists to dynamodb', async () => {
-    await expect(mod.ETLIssue('kubernetes', 'kubernetes', 56903, octokit)).resolves.toBeUndefined()
+    await expect(mod.ETLIssue('kubernetes', 'kubernetes', 56903, octokit)).resolves.toMatchSnapshot()
     const get = await mod.documentClient
       .get({
         TableName: 'issue',

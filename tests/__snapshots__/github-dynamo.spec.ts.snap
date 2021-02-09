@@ -1,6 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`github dynamo ETLIssue queries issue, persists to dynamodb 1`] = `
+exports[`github dynamo ETLIssue queries issue, persists to dynamodb 1`] = `Object {}`;
+
+exports[`github dynamo ETLIssue queries issue, persists to dynamodb 2`] = `
 Object {
   "Item": Object {
     "assignees": 0,
@@ -19,7 +21,9 @@ Object {
 }
 `;
 
-exports[`github dynamo ETLPullRequest queries pull request, persists to dynamodb 1`] = `
+exports[`github dynamo ETLPullRequest queries pull request, persists to dynamodb 1`] = `Object {}`;
+
+exports[`github dynamo ETLPullRequest queries pull request, persists to dynamodb 2`] = `
 Object {
   "Item": Object {
     "additions": 10,

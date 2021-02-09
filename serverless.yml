@@ -37,9 +37,6 @@ provider:
             - Arn
       - Effect: "Allow"
         Action:
-        # - dynamodb:DescribeTable
-        # - dynamodb:Query
-        # - dynamodb:GetItem
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         Resource: 
