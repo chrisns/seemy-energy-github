@@ -7,7 +7,7 @@ import { throttling } from '@octokit/plugin-throttling'
 import { retry } from '@octokit/plugin-retry'
 import { Endpoints } from '@octokit/types'
 import SQS from 'aws-sdk/clients/sqs'
-import DynamoDB from 'aws-sdk/clients/dynamodb'
+import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 
 export function getAuthenticatedOctokit (installationId: number): Octokit {
   const MyOctokit = Octokit.plugin(paginateRest, throttling, retry)
@@ -122,11 +122,11 @@ const config = {
   }),
 }
 
-export const documentClient = new DynamoDB.DocumentClient(config)
+export const documentClient = new DocumentClient(config)
 
 export const sqsClient = new SQS()
 
-const upsert_table = async (payload, table) =>
+const upsert_table = async (payload, table: string): Promise<DocumentClient.PutItemOutput> =>
   documentClient
     .put({
       Item: payload,
@@ -139,17 +139,22 @@ export async function ETLPullRequest (
   repo: string,
   pull_number: number,
   octokit: Octokit,
-): Promise<any> {
+): Promise<DocumentClient.PutItemOutput> {
   const pull = await octokit.pulls.get({ owner, repo, pull_number })
 
   const formatted = formatPullRequest(pull.data)
-  return upsert_table(formatted, process.env.PULL_TABLE)
+  return upsert_table(formatted, process.env.PULL_TABLE ? process.env.PULL_TABLE : 'pulls')
 }
 
-export async function ETLIssue (owner: string, repo: string, issue_number: number, octokit: Octokit): Promise<any> {
+export async function ETLIssue (
+  owner: string,
+  repo: string,
+  issue_number: number,
+  octokit: Octokit,
+): Promise<DocumentClient.PutItemOutput> {
   const issue = <Endpoints['GET /repos/{owner}/{repo}/issues/{issue_number}']['response']>(
     await octokit.issues.get({ owner, repo, issue_number })
   )
   const formatted = formatIssue(issue.data)
-  return upsert_table(formatted, process.env.ISSUE_TABLE)
+  return upsert_table(formatted, process.env.ISSUE_TABLE ? process.env.ISSUE_TABLE : 'issues')
 }
