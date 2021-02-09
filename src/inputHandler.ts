@@ -6,7 +6,7 @@ import SQS from 'aws-sdk/clients/sqs'
 
 export const sqsClient = new SQS()
 
-export async function sqsPRQueueHandler (event: SQSEvent): Promise<void> {
+export async function sqsPRQueueHandler (event: SQSEvent): Promise<any> {
   const response = event.Records.map(record => {
     const body = <github.sqsPullMessage>JSON.parse(record.body)
     const octokit = github.getAuthenticatedOctokit(body.installation_id)
@@ -15,7 +15,7 @@ export async function sqsPRQueueHandler (event: SQSEvent): Promise<void> {
   return Promise.all(response)
 }
 
-export async function sqsIssueQueueHandler (event: SQSEvent): Promise<void> {
+export async function sqsIssueQueueHandler (event: SQSEvent): Promise<any> {
   const response = event.Records.map(record => {
     const body = <github.sqsIssueMessage>JSON.parse(record.body)
     const octokit = github.getAuthenticatedOctokit(body.installation_id)
@@ -44,7 +44,7 @@ export async function httpQueryRepoHandler (event: APIGatewayProxyEventV2): Prom
     .promise()
 }
 
-export async function sqsRepoQueueHandler (event: SQSEvent): Promise<void> {
+export async function sqsRepoQueueHandler (event: SQSEvent): Promise<any> {
   const response = event.Records.map(record => {
     const body = <github.sqsIssueMessage>JSON.parse(record.body)
     const octokit = github.getAuthenticatedOctokit(body.installation_id)

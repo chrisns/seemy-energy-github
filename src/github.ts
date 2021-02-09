@@ -139,14 +139,14 @@ export async function ETLPullRequest (
   repo: string,
   pull_number: number,
   octokit: Octokit,
-): Promise<void> {
+): Promise<any> {
   const pull = await octokit.pulls.get({ owner, repo, pull_number })
 
   const formatted = formatPullRequest(pull.data)
   return upsert_table(formatted, process.env.PULL_TABLE)
 }
 
-export async function ETLIssue (owner: string, repo: string, issue_number: number, octokit: Octokit): Promise<void> {
+export async function ETLIssue (owner: string, repo: string, issue_number: number, octokit: Octokit): Promise<any> {
   const issue = <Endpoints['GET /repos/{owner}/{repo}/issues/{issue_number}']['response']>(
     await octokit.issues.get({ owner, repo, issue_number })
   )
