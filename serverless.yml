@@ -5,6 +5,11 @@ frameworkVersion: '2'
 useDotenv: true
 plugins:
   - serverless-plugin-typescript
+  - serverless-jetpack
+
+custom:
+  serverless-jetpack:
+    mode: npm
 
 provider:
   name: aws
