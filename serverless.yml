@@ -32,6 +32,9 @@ provider:
           - Fn::GetAtt:
             - IssueQueue
             - Arn
+          - Fn::GetAtt:
+            - RepoQueue
+            - Arn
       - Effect: "Allow"
         Action:
         # - dynamodb:DescribeTable
@@ -49,13 +52,18 @@ provider:
 
   environment:
     PR_QUEUE: !Ref PullRequestQueue
+    REPO_QUEUE: !Ref RepoQueue
     ISSUE_QUEUE: !Ref IssueQueue
+    PULL_TABLE: !Select [1, !Split ['/', !GetAtt pullTable.Arn]] 
+    ISSUE_TABLE: !Select [1, !Split ['/', !GetAtt issueTable.Arn]] 
     appId: ${env:appId}
     privateKey: ${env:privateKey}
+    DEBUG: "*"
 
 functions:
   queryPR:
     handler: src/inputHandler.sqsPRQueueHandler
+    maximumRetryAttempts: 0
     events:
       - sqs:
           arn:
@@ -65,6 +73,7 @@ functions:
 
   queryIssue:
     handler: src/inputHandler.sqsIssueQueueHandler
+    maximumRetryAttempts: 0
     events:
       - sqs:
           arn:
@@ -73,7 +82,17 @@ functions:
               - Arn
 
   queryRepo:
-    timeout: 29
+    timeout: 600
+    maximumRetryAttempts: 0
+    handler: src/inputHandler.sqsRepoQueueHandler
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - RepoQueue
+              - Arn
+
+  queryRepoHttp:
     handler: src/inputHandler.httpQueryRepoHandler
     events:
       - httpApi:
@@ -95,6 +114,10 @@ package:
 
 resources:
   Resources:
+    RepoQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: seemyGithubRepo
     PullRequestQueue:
       Type: AWS::SQS::Queue
       Properties:
@@ -106,7 +129,7 @@ resources:
     pullTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: pull
+        TableName: seemyVCSpull
         KeySchema:
           - AttributeName: url
             KeyType: HASH
@@ -119,11 +142,11 @@ resources:
             AttributeType: "N"
         ProvisionedThroughput:
           ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
+          WriteCapacityUnits: 2
     issueTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: issue
+        TableName: seemyVCSissue
         KeySchema:
           - AttributeName: url
             KeyType: HASH
@@ -136,7 +159,7 @@ resources:
             AttributeType: "N"
         ProvisionedThroughput:
           ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
+          WriteCapacityUnits: 2
 
   # Outputs:
   #   outputs:
