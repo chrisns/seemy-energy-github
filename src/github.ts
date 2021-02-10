@@ -103,9 +103,9 @@ export async function pullListPRtoSQS (
   return self.sqsClient
     .sendMessage({
       MessageBody: JSON.stringify(<sqsPullMessage>{
-        owner: pull.base && pull.base.user && pull.base.user.login ? pull.base.user.login : 'unknown',
+        owner:  pull.base?.user?.login ?? 'unknown',
         pull_number: pull.number,
-        repo: pull.base && pull.base.repo && pull.base.repo.name ? pull.base.repo.name : 'unknown',
+        repo: pull.base?.repo?.name ?? 'unknown',
         installation_id: installationId,
       }),
       QueueUrl: process.env.PR_QUEUE ? process.env.PR_QUEUE : 'error',
