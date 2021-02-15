@@ -9,7 +9,8 @@ Object {
 exports[`github Map issue from list item to a SQS message 2`] = `
 Array [
   Object {
-    "MessageBody": "{\\"owner\\":\\"k8s.io\\",\\"issue_number\\":1597,\\"repo\\":\\"kubernetes\\",\\"installation_id\\":1234}",
+    "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"issue_number\\":1597,\\"repo\\":\\"k8s.io\\",\\"installation_id\\":1234}",
+    "MessageGroupId": "1234",
     "QueueUrl": "something",
   },
 ]
@@ -25,6 +26,7 @@ exports[`github Map pull request from list item to a SQS message 2`] = `
 Array [
   Object {
     "MessageBody": "{\\"owner\\":\\"kubernetes\\",\\"pull_number\\":1596,\\"repo\\":\\"k8s.io\\",\\"installation_id\\":1234}",
+    "MessageGroupId": "1234",
     "QueueUrl": "something",
   },
 ]

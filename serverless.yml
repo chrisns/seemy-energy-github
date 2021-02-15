@@ -60,7 +60,7 @@ provider:
 functions:
   queryPR:
     handler: src/inputHandler.sqsPRQueueHandler
-    maximumRetryAttempts: 0
+    maximumRetryAttempts: 10
     events:
       - sqs:
           arn:
@@ -70,7 +70,7 @@ functions:
 
   queryIssue:
     handler: src/inputHandler.sqsIssueQueueHandler
-    maximumRetryAttempts: 0
+    maximumRetryAttempts: 10
     events:
       - sqs:
           arn:
@@ -79,8 +79,8 @@ functions:
               - Arn
 
   queryRepo:
-    timeout: 600
-    maximumRetryAttempts: 0
+    timeout: 900
+    maximumRetryAttempts: 10
     handler: src/inputHandler.sqsRepoQueueHandler
     events:
       - sqs:
@@ -114,15 +114,48 @@ resources:
     RepoQueue:
       Type: AWS::SQS::Queue
       Properties:
+        QueueName: seemyGithubRepo.fifo
+        VisibilityTimeout: 1200
+        FifoQueue: true
+        ContentBasedDeduplication: true
+        RedrivePolicy:
+          deadLetterTargetArn: !GetAtt RepoQueueDLQ .Arn
+
+    RepoQueueDLQ:
+      Type: AWS::SQS::Queue
+      Properties:
         QueueName: seemyGithubRepo
+
     PullRequestQueue:
       Type: AWS::SQS::Queue
       Properties:
-        QueueName: seemyGithubPullRequest
+        QueueName: seemyGithubPullRequest.fifo
+        VisibilityTimeout: 300
+        FifoQueue: true
+        ContentBasedDeduplication: true
+        RedrivePolicy:
+          deadLetterTargetArn: !GetAtt PullRequestQueueDLQ.Arn
+
+    PullRequestQueueDLQ:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: seemyGithubPullRequestDLQ
+
     IssueQueue:
       Type: AWS::SQS::Queue
       Properties:
-        QueueName: seemyGithubIssue
+        QueueName: seemyGithubIssue.fifo
+        VisibilityTimeout: 300
+        FifoQueue: true
+        ContentBasedDeduplication: true
+        RedrivePolicy:
+          deadLetterTargetArn: !GetAtt IssueQueueDLQ.Arn
+
+    IssueQueueDLQ:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: seemyGithubIssueDLQ
+
     pullTable:
       Type: AWS::DynamoDB::Table
       Properties:

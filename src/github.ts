@@ -86,11 +86,12 @@ export async function issueListIssuetoSQS (
   return self.sqsClient
     .sendMessage({
       MessageBody: JSON.stringify(<sqsIssueMessage>{
-        owner: issue.repository_url.split('/').reverse()[0],
+        owner: issue.repository_url.split('/').reverse()[1],
         issue_number: issue.number,
-        repo: issue.repository_url.split('/').reverse()[1],
+        repo: issue.repository_url.split('/').reverse()[0],
         installation_id: installationId,
       }),
+      MessageGroupId: installationId.toString(),
       QueueUrl: process.env.ISSUE_QUEUE ? process.env.ISSUE_QUEUE : 'error',
     })
     .promise()
@@ -103,11 +104,12 @@ export async function pullListPRtoSQS (
   return self.sqsClient
     .sendMessage({
       MessageBody: JSON.stringify(<sqsPullMessage>{
-        owner:  pull.base?.user?.login ?? 'unknown',
+        owner: pull.base?.user?.login ?? 'unknown',
         pull_number: pull.number,
         repo: pull.base?.repo?.name ?? 'unknown',
         installation_id: installationId,
       }),
+      MessageGroupId: installationId.toString(),
       QueueUrl: process.env.PR_QUEUE ? process.env.PR_QUEUE : 'error',
     })
     .promise()
