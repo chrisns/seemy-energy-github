@@ -7,6 +7,7 @@ module.exports = function (w) {
       'src/**/*.ts',
       'tests/jest-dynalite-config.js',
       'tests/fixtures.ts',
+      { pattern: '.env', instrument: false },
     ],
     tests: ['tests/**/*.spec.ts'],
     env: {
