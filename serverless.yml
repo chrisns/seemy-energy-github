@@ -27,13 +27,7 @@ provider:
           - "sqs:SendMessage"
         Resource: 
           - Fn::GetAtt:
-            - PullRequestQueue
-            - Arn
-          - Fn::GetAtt:
-            - IssueQueue
-            - Arn
-          - Fn::GetAtt:
-            - RepoQueue
+            - PageQueue
             - Arn
       - Effect: "Allow"
         Action:
@@ -58,13 +52,13 @@ provider:
 functions:
   pageQueueHandler:
     handler: src/inputHandler.sqsPageQueueHandler
-    maximumRetryAttempts: 10
+    maximumRetryAttempts: 2
     timeout: 900
     events:
       - sqs:
           arn:
             Fn::GetAtt:
-              - PullRequestQueue
+              - PageQueue
               - Arn
 
   http:
@@ -89,6 +83,12 @@ package:
 
 resources:
   Resources:
+
+    PageQueueDLQ:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: seemyGithubPageDLQ
+
     PageQueue:
       Type: AWS::SQS::Queue
       Properties:
@@ -97,12 +97,7 @@ resources:
         FifoQueue: true
         ContentBasedDeduplication: true
         RedrivePolicy:
-          deadLetterTargetArn: !GetAtt PageQueueDLQ .Arn
-
-    PageQueueDLQ:
-      Type: AWS::SQS::Queue
-      Properties:
-        QueueName: seemyGithubPage
+          deadLetterTargetArn: !GetAtt PageQueueDLQ.Arn
 
     pullTable:
       Type: AWS::DynamoDB::Table
