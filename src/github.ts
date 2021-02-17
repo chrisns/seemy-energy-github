@@ -2,12 +2,13 @@ import { createAppAuth } from '@octokit/auth-app'
 import { graphql } from '@octokit/graphql'
 import { formatIssue, formatPullRequest, RecordIssue, RecordPullRequest } from './formatter'
 import SQS from 'aws-sdk/clients/sqs'
+import { Repository } from '@octokit/graphql-schema'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 
 export const sqsClient = new SQS()
 export const documentClient = new DocumentClient()
 
-export function getAuthenticatedOctokit (installationId: number) {
+export function getAuthenticatedOctokit (installationId: number): typeof graphql {
   const auth = createAppAuth({
     appId: process.env.appId ?? 0,
     privateKey: process.env.privateKey ?? 'none',
@@ -24,17 +25,17 @@ export async function makeQuery (
   owner: string,
   repo: string,
   installationId: number,
-  count: number = 25,
+  count = 25,
   prCursor: string | null = null,
   issueCursor: string | null = null,
   graphql = getAuthenticatedOctokit(installationId),
-) {
+): Promise<Repository> {
   const { repository, errors } = await graphql({
     query: `#graphql
-      query last($owner: String!, $repo: String!, $num: Int = 1) {
+      query last($owner: String!, $repo: String!, $num: Int = 1, $prCursor: String, $issueCursor: String) {
         repository(owner: $owner, name: $repo) {
 
-          pullRequests(first: $num, states: CLOSED) {
+          pullRequests(first: $num, after: $prCursor, states: CLOSED) {
             # totalCount
             pageInfo {
               endCursor
@@ -83,7 +84,7 @@ export async function makeQuery (
             }
           }
 
-          issues(first: $num, states: CLOSED) {
+          issues(first: $num, after: $issueCursor, states: CLOSED) {
             # totalCount
             pageInfo {
               endCursor
@@ -122,16 +123,22 @@ export async function makeQuery (
               }
             }
           }
-
-
         }
       }`,
     owner,
     repo,
     num: count,
+    prCursor,
+    issueCursor,
   })
   if (errors?.length > 0) throw errors[0].message
   return repository
+}
+
+interface FlowResponse {
+  persistedPulls: DocumentClient.BatchWriteItemOutput
+  persistedIssues: DocumentClient.BatchWriteItemOutput
+  nextPage: SQS.SendMessageResult
 }
 
 export async function flow (
@@ -140,7 +147,7 @@ export async function flow (
   installationId: number,
   prCursor: string | null = null,
   issueCursor: string | null = null,
-) {
+): FlowResponse {
   const repository = await makeQuery(owner, repo, installationId, undefined, prCursor, issueCursor)
 
   const nextPage = await queueNextPage(
@@ -161,10 +168,10 @@ export async function flow (
   }
 }
 
-export async function persistBatchOfIssues (issues) {
+export async function persistBatchOfIssues (issues: RecordIssue[]): Promise<DocumentClient.BatchWriteItemOutput> {
   return upsert_table(issues, process.env.ISSUE_TABLE ?? 'ISSUE_TABLE')
 }
-export async function persistBatchOfPulls (pulls) {
+export async function persistBatchOfPulls (pulls: RecordPullRequest[]): Promise<DocumentClient.BatchWriteItemOutput> {
   return upsert_table(pulls, process.env.PULL_TABLE ?? 'PULL_TABLE')
 }
 

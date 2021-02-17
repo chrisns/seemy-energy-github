@@ -2,11 +2,10 @@ import * as github from './github'
 
 import { SQSEvent, APIGatewayProxyEventV2 } from 'aws-lambda'
 import SQS from 'aws-sdk/clients/sqs'
-import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 
 export const sqsClient = new SQS()
 
-export async function sqsPageQueueHandler (event: SQSEvent) {
+export async function sqsPageQueueHandler (event: SQSEvent): Promise<unknown> {
   const response = event.Records.map(record => {
     const body = JSON.parse(record.body) as github.sqsPageMessage
     return github.flow(body.owner, body.repo, body.installationId, body.prCursor, body.issueCursor)

@@ -1,3 +1,4 @@
+import { IssueEdge, PullRequestEdge } from '@octokit/graphql-schema'
 export interface RecordPullRequest {
   repo: string
   id: number
@@ -20,26 +21,31 @@ export interface RecordPullRequest {
   time_to_close: number
 }
 
-export function formatPullRequest (pull): RecordPullRequest {
-  return {
-    repo: pull.node.repository.name,
-    id: pull.node.number,
-    url: pull.node.repository.url,
-    holder: pull.node.repository.owner.login,
-    author: pull.node.author.login,
-    commits: pull.node.commits.totalCount,
-    // review_comments
-    additions: pull.node.additions,
-    deletions: pull.node.deletions,
-    changed_files: pull.node.changedFiles,
-    merged_by: pull.node.closedBy.nodes[0].actor.login,
-    created_at: Date.parse(pull.node.createdAt),
-    closed_at: Date.parse(pull.node.closedAt),
-    // merged_at
-    assignees: pull.node.assignees.totalCount,
-    reviewers: pull.node.reviews.totalCount,
-    body_length: pull.node.body.length,
-    time_to_close: Date.parse(pull.node.closedAt) - Date.parse(pull.node.createdAt),
+export function formatPullRequest (pull: PullRequestEdge): RecordPullRequest | null {
+  try {
+    return {
+      repo: pull.node.repository.name,
+      id: pull.node.number,
+      url: pull.node.repository.url,
+      holder: pull.node.repository.owner.login,
+      author: pull.node.author.login,
+      commits: pull.node.commits.totalCount,
+      // review_comments
+      additions: pull.node.additions,
+      deletions: pull.node.deletions,
+      changed_files: pull.node.changedFiles,
+      merged_by: pull.node.closedBy.nodes[0].actor.login,
+      created_at: Date.parse(pull.node.createdAt),
+      closed_at: Date.parse(pull.node.closedAt),
+      // merged_at
+      assignees: pull.node.assignees.totalCount,
+      reviewers: pull.node.reviews?.totalCount ?? 0,
+      body_length: pull.node.body.length,
+      time_to_close: Date.parse(pull.node.closedAt) - Date.parse(pull.node.createdAt),
+    }
+  } catch (er) {
+    console.error(er)
+    return null
   }
 }
 
@@ -58,19 +64,24 @@ export interface RecordIssue {
   comments: number
 }
 
-export function formatIssue (issue): RecordIssue {
-  return {
-    repo: issue.node.repository.name,
-    id: issue.node.number,
-    url: issue.node.repository.url,
-    holder: issue.node.repository.owner.login,
-    author: issue.node.author.login,
-    comments: issue.node.comments.totalCount,
-    closed_by: issue.node.closedBy.nodes[0].actor.login,
-    created_at: Date.parse(issue.node.createdAt),
-    closed_at: Date.parse(issue.node.closedAt),
-    assignees: issue.node.assignees.totalCount,
-    body_length: issue.node.body.length,
-    time_to_close: Date.parse(issue.node.closedAt) - Date.parse(issue.node.createdAt),
+export function formatIssue (issue: IssueEdge): RecordIssue | null {
+  try {
+    return {
+      repo: issue.node.repository.name,
+      id: issue.node.number,
+      url: issue.node.repository.url,
+      holder: issue.node.repository.owner.login,
+      author: issue.node.author?.login,
+      comments: issue.node.comments.totalCount,
+      closed_by: issue.node.closedBy.nodes[0].actor.login,
+      created_at: Date.parse(issue.node.createdAt),
+      closed_at: Date.parse(issue.node.closedAt),
+      assignees: issue.node.assignees.totalCount,
+      body_length: issue.node.body.length,
+      time_to_close: Date.parse(issue.node.closedAt) - Date.parse(issue.node.createdAt),
+    }
+  } catch (er) {
+    console.error(er)
+    return null
   }
 }
