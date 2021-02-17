@@ -48,9 +48,7 @@ provider:
             - Arn
 
   environment:
-    PR_QUEUE: !Ref PullRequestQueue
-    REPO_QUEUE: !Ref RepoQueue
-    ISSUE_QUEUE: !Ref IssueQueue
+    PAGE_QUEUE: !Ref PageQueue
     PULL_TABLE: !Select [1, !Split ['/', !GetAtt pullTable.Arn]] 
     ISSUE_TABLE: !Select [1, !Split ['/', !GetAtt issueTable.Arn]] 
     appId: ${env:appId}
@@ -58,9 +56,10 @@ provider:
     DEBUG: "*"
 
 functions:
-  queryPR:
-    handler: src/inputHandler.sqsPRQueueHandler
+  pageQueueHandler:
+    handler: src/inputHandler.sqsPageQueueHandler
     maximumRetryAttempts: 10
+    timeout: 900
     events:
       - sqs:
           arn:
@@ -68,32 +67,11 @@ functions:
               - PullRequestQueue
               - Arn
 
-  queryIssue:
-    handler: src/inputHandler.sqsIssueQueueHandler
-    maximumRetryAttempts: 10
-    events:
-      - sqs:
-          arn:
-            Fn::GetAtt:
-              - IssueQueue
-              - Arn
-
-  queryRepo:
-    timeout: 900
-    maximumRetryAttempts: 10
-    handler: src/inputHandler.sqsRepoQueueHandler
-    events:
-      - sqs:
-          arn:
-            Fn::GetAtt:
-              - RepoQueue
-              - Arn
-
-  queryRepoHttp:
+  http:
     handler: src/inputHandler.httpQueryRepoHandler
     events:
       - httpApi:
-          path: /queryrepo/{installationId}/{owner}/{repo}
+          path: /{installationId}/{owner}/{repo}
           method: GET
 
 package:
@@ -111,50 +89,20 @@ package:
 
 resources:
   Resources:
-    RepoQueue:
+    PageQueue:
       Type: AWS::SQS::Queue
       Properties:
-        QueueName: seemyGithubRepo.fifo
+        QueueName: seemyGithubPage.fifo
         VisibilityTimeout: 1200
         FifoQueue: true
         ContentBasedDeduplication: true
         RedrivePolicy:
-          deadLetterTargetArn: !GetAtt RepoQueueDLQ .Arn
+          deadLetterTargetArn: !GetAtt PageQueueDLQ .Arn
 
-    RepoQueueDLQ:
+    PageQueueDLQ:
       Type: AWS::SQS::Queue
       Properties:
-        QueueName: seemyGithubRepo
-
-    PullRequestQueue:
-      Type: AWS::SQS::Queue
-      Properties:
-        QueueName: seemyGithubPullRequest.fifo
-        VisibilityTimeout: 300
-        FifoQueue: true
-        ContentBasedDeduplication: true
-        RedrivePolicy:
-          deadLetterTargetArn: !GetAtt PullRequestQueueDLQ.Arn
-
-    PullRequestQueueDLQ:
-      Type: AWS::SQS::Queue
-      Properties:
-        QueueName: seemyGithubPullRequestDLQ
-
-    IssueQueue:
-      Type: AWS::SQS::Queue
-      Properties:
-        QueueName: seemyGithubIssue.fifo
-        VisibilityTimeout: 300
-        FifoQueue: true
-        ContentBasedDeduplication: true
-        RedrivePolicy:
-          deadLetterTargetArn: !GetAtt IssueQueueDLQ.Arn
-
-    IssueQueueDLQ:
-      Type: AWS::SQS::Queue
-      Properties:
-        QueueName: seemyGithubIssueDLQ
+        QueueName: seemyGithubPage
 
     pullTable:
       Type: AWS::DynamoDB::Table
@@ -190,11 +138,3 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 2
-
-  # Outputs:
-  #   outputs:
-  #     Description: Output
-  #     Value:
-  #       'Ref': [usersTable, Arn]
-  #     Export:
-  #       Name: ${self:service}:${opt:stage}:outputs # see Fn::ImportVa
