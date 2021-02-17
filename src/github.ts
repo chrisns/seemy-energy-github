@@ -1,162 +1,209 @@
-import * as self from './github'
-import { Octokit } from '@octokit/rest'
 import { createAppAuth } from '@octokit/auth-app'
-import { formatPullRequest, formatIssue } from './formatter'
-import { paginateRest } from '@octokit/plugin-paginate-rest'
-import { throttling } from '@octokit/plugin-throttling'
-import { retry } from '@octokit/plugin-retry'
-import { Endpoints } from '@octokit/types'
+import { graphql } from '@octokit/graphql'
+import { formatIssue, formatPullRequest, RecordIssue, RecordPullRequest } from './formatter'
 import SQS from 'aws-sdk/clients/sqs'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 
-export function getAuthenticatedOctokit (installationId: number): Octokit {
-  const MyOctokit = Octokit.plugin(paginateRest, throttling, retry)
-  const octokit = new MyOctokit({
-    log: console,
-    authStrategy: createAppAuth,
-    auth: {
-      appId: process.env.appId,
-      type: 'app',
-      privateKey: process.env.privateKey,
-      installationId: installationId,
-    },
-    throttle: {
-      onRateLimit: (retryAfter, options) => {
-        octokit.log.warn(`Request quota exhausted for request ${options.method} ${options.url}`)
-        if (options.request.retryCount === 0) {
-          octokit.log.info(`Retrying after ${retryAfter} seconds!`)
-          return true
-        }
-      },
-      onAbuseLimit: (retryAfter, options) => {
-        octokit.log.error(`Abuse detected for request ${options.method} ${options.url}`)
-      },
+export const sqsClient = new SQS()
+export const documentClient = new DocumentClient()
+
+export function getAuthenticatedOctokit (installationId: number) {
+  const auth = createAppAuth({
+    appId: process.env.appId ?? 0,
+    privateKey: process.env.privateKey ?? 'none',
+    installationId: installationId ?? 0,
+  })
+  return graphql.defaults({
+    request: {
+      hook: auth.hook,
     },
   })
-  return octokit
 }
 
-export interface sqsPullMessage {
-  owner: string
-  repo: string
-  pull_number: number
-  installation_id: number
-}
-
-export interface sqsIssueMessage {
-  owner: string
-  repo: string
-  issue_number: number
-  installation_id: number
-}
-
-export async function queryRepo (owner: string, repo: string, octokit: Octokit, installationId: number): Promise<void> {
-  for await (const pulls of octokit.paginate.iterator(octokit.pulls.list, {
-    owner: owner,
-    repo: repo,
-    per_page: 100,
-  })) {
-    await Promise.all(
-      pulls.data.map(pull =>
-        self.pullListPRtoSQS(<Endpoints['GET /repos/{owner}/{repo}/pulls']['response']['data'][0]>pull, installationId),
-      ),
-    )
-  }
-
-  for await (const issues of octokit.paginate.iterator(octokit.issues.listForRepo, {
-    owner: owner,
-    repo: repo,
-    per_page: 100,
-  })) {
-    await Promise.all(
-      issues.data.map(issue =>
-        self.issueListIssuetoSQS(
-          <Endpoints['GET /repos/{owner}/{repo}/issues']['response']['data'][0]>issue,
-          installationId,
-        ),
-      ),
-    )
-  }
-}
-
-export async function issueListIssuetoSQS (
-  issue: Endpoints['GET /repos/{owner}/{repo}/issues']['response']['data'][0],
-  installationId: number,
-): Promise<SQS.SendMessageResult> {
-  return self.sqsClient
-    .sendMessage({
-      MessageBody: JSON.stringify(<sqsIssueMessage>{
-        owner: issue.repository_url.split('/').reverse()[1],
-        issue_number: issue.number,
-        repo: issue.repository_url.split('/').reverse()[0],
-        installation_id: installationId,
-      }),
-      MessageGroupId: installationId.toString(),
-      QueueUrl: process.env.ISSUE_QUEUE ? process.env.ISSUE_QUEUE : 'error',
-    })
-    .promise()
-}
-
-export async function pullListPRtoSQS (
-  pull: Endpoints['GET /repos/{owner}/{repo}/pulls']['response']['data'][0],
-  installationId: number,
-): Promise<SQS.SendMessageResult> {
-  return self.sqsClient
-    .sendMessage({
-      MessageBody: JSON.stringify(<sqsPullMessage>{
-        owner: pull.base?.user?.login ?? 'unknown',
-        pull_number: pull.number,
-        repo: pull.base?.repo?.name ?? 'unknown',
-        installation_id: installationId,
-      }),
-      MessageGroupId: installationId.toString(),
-      QueueUrl: process.env.PR_QUEUE ? process.env.PR_QUEUE : 'error',
-    })
-    .promise()
-}
-
-const config = {
-  convertEmptyValues: true,
-  ...(process.env.MOCK_DYNAMODB_ENDPOINT && {
-    endpoint: process.env.MOCK_DYNAMODB_ENDPOINT,
-    sslEnabled: false,
-    region: 'local',
-  }),
-}
-
-export const documentClient = new DocumentClient(config)
-
-export const sqsClient = new SQS()
-
-const upsert_table = async (payload, table: string): Promise<DocumentClient.PutItemOutput> =>
-  documentClient
-    .put({
-      Item: payload,
-      TableName: table,
-    })
-    .promise()
-
-export async function ETLPullRequest (
+export async function makeQuery (
   owner: string,
   repo: string,
-  pull_number: number,
-  octokit: Octokit,
-): Promise<DocumentClient.PutItemOutput> {
-  const pull = await octokit.pulls.get({ owner, repo, pull_number })
+  installationId: number,
+  count: number = 25,
+  prCursor: string | null = null,
+  issueCursor: string | null = null,
+  graphql = getAuthenticatedOctokit(installationId),
+) {
+  const { repository, errors } = await graphql({
+    query: `#graphql
+      query last($owner: String!, $repo: String!, $num: Int = 1) {
+        repository(owner: $owner, name: $repo) {
 
-  const formatted = formatPullRequest(pull.data)
-  return upsert_table(formatted, process.env.PULL_TABLE ? process.env.PULL_TABLE : 'pull')
+          pullRequests(first: $num, states: CLOSED) {
+            # totalCount
+            pageInfo {
+              endCursor
+            }
+            edges {
+              node {
+                number
+                additions
+                deletions
+                changedFiles
+                repository {
+                  name
+                  owner {
+                    login
+                  }
+                  url
+                }
+                commits {
+                  totalCount
+                }
+                author {
+                  login
+                }
+                comments {
+                  totalCount
+                }
+                createdAt
+                closedAt
+                assignees {
+                  totalCount
+                }
+                reviews {
+                  totalCount
+                }
+                body
+                closedBy: timelineItems(last: 1, itemTypes: CLOSED_EVENT) {
+                  nodes {
+                    ... on ClosedEvent {
+                      actor {
+                        login
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          issues(first: $num, states: CLOSED) {
+            # totalCount
+            pageInfo {
+              endCursor
+            }
+            edges {
+              node {
+                number
+                repository {
+                  name
+                  owner {
+                    login
+                  }
+                  url
+                }
+                author {
+                  login
+                }
+                comments {
+                  totalCount
+                }
+                createdAt
+                closedAt
+                assignees {
+                  totalCount
+                }
+                body
+                closedBy: timelineItems(last: 1, itemTypes: CLOSED_EVENT) {
+                  nodes {
+                    ... on ClosedEvent {
+                      actor {
+                        login
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+
+        }
+      }`,
+    owner,
+    repo,
+    num: count,
+  })
+  if (errors?.length > 0) throw errors[0].message
+  return repository
 }
 
-export async function ETLIssue (
+export async function flow (
   owner: string,
   repo: string,
-  issue_number: number,
-  octokit: Octokit,
-): Promise<DocumentClient.PutItemOutput> {
-  const issue = <Endpoints['GET /repos/{owner}/{repo}/issues/{issue_number}']['response']>(
-    await octokit.issues.get({ owner, repo, issue_number })
+  installationId: number,
+  prCursor: string | null = null,
+  issueCursor: string | null = null,
+) {
+  const repository = await makeQuery(owner, repo, installationId, undefined, prCursor, issueCursor)
+
+  const nextPage = await queueNextPage(
+    owner,
+    repo,
+    installationId,
+    repository.pullRequests.pageInfo.endCursor,
+    repository.issues.pageInfo.endCursor,
   )
-  const formatted = formatIssue(issue.data)
-  return upsert_table(formatted, process.env.ISSUE_TABLE ? process.env.ISSUE_TABLE : 'issue')
+  const pulls = repository.pullRequests.edges.map(formatPullRequest)
+  const issues = repository.issues.edges.map(formatIssue)
+  const persistedPulls = await persistBatchOfPulls(pulls)
+  const persistedIssues = await persistBatchOfIssues(issues)
+  return {
+    nextPage,
+    persistedPulls,
+    persistedIssues,
+  }
+}
+
+export async function persistBatchOfIssues (issues) {
+  return upsert_table(issues, process.env.ISSUE_TABLE ?? 'ISSUE_TABLE')
+}
+export async function persistBatchOfPulls (pulls) {
+  return upsert_table(pulls, process.env.PULL_TABLE ?? 'PULL_TABLE')
+}
+
+export async function upsert_table (
+  payload: (RecordIssue | RecordPullRequest)[],
+  table: string,
+): Promise<DocumentClient.BatchWriteItemOutput> {
+  const items = payload.map((item: RecordIssue | RecordPullRequest) => {
+    return { PutRequest: { Item: item } }
+  })
+  return documentClient.batchWrite({ RequestItems: { [table]: items } }).promise()
+}
+
+export async function queueNextPage (
+  owner: string,
+  repo: string,
+  installationId: number,
+  prCursor: string | null = null,
+  issueCursor: string | null = null,
+): Promise<SQS.SendMessageResult> {
+  return sqsClient
+    .sendMessage({
+      MessageBody: JSON.stringify(<sqsPageMessage>{
+        owner,
+        repo,
+        installationId,
+        prCursor,
+        issueCursor,
+      }),
+      MessageGroupId: installationId.toString(),
+      QueueUrl: process.env.PAGE_QUEUE ?? 'page_queue',
+    })
+    .promise()
+}
+
+export interface sqsPageMessage {
+  owner: string
+  repo: string
+  installationId: number
+  prCursor: string | null
+  issueCursor: string | null
 }

@@ -1,5 +1,4 @@
 import * as github from './github'
-import * as self from './inputHandler'
 
 import { SQSEvent, APIGatewayProxyEventV2 } from 'aws-lambda'
 import SQS from 'aws-sdk/clients/sqs'
@@ -7,28 +6,12 @@ import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 
 export const sqsClient = new SQS()
 
-export async function sqsPRQueueHandler (event: SQSEvent): Promise<DocumentClient.PutItemOutput[]> {
+export async function sqsPageQueueHandler (event: SQSEvent) {
   const response = event.Records.map(record => {
-    const body = JSON.parse(record.body) as github.sqsPullMessage
-    const octokit = github.getAuthenticatedOctokit(body.installation_id)
-    return github.ETLPullRequest(body.owner, body.repo, body.pull_number, octokit)
+    const body = JSON.parse(record.body) as github.sqsPageMessage
+    return github.flow(body.owner, body.repo, body.installationId, body.prCursor, body.issueCursor)
   })
   return Promise.all(response)
-}
-
-export async function sqsIssueQueueHandler (event: SQSEvent): Promise<DocumentClient.PutItemOutput[]> {
-  const response = event.Records.map(record => {
-    const body = JSON.parse(record.body) as github.sqsIssueMessage
-    const octokit = github.getAuthenticatedOctokit(body.installation_id)
-    return github.ETLIssue(body.owner, body.repo, body.issue_number, octokit)
-  })
-  return Promise.all(response)
-}
-
-interface sqsRepoMessage {
-  owner: string
-  repo: string
-  installation_id: number
 }
 
 export async function httpQueryRepoHandler (event: APIGatewayProxyEventV2): Promise<string | undefined> {
@@ -36,26 +19,13 @@ export async function httpQueryRepoHandler (event: APIGatewayProxyEventV2): Prom
     throw 'Not sure what to do here.'
   }
 
-  const installationId = Number(event.pathParameters.installationId)
-  const response = await self.sqsClient
-    .sendMessage({
-      MessageBody: JSON.stringify(<sqsRepoMessage>{
-        owner: event.pathParameters.owner,
-        repo: event.pathParameters.repo,
-        installation_id: installationId,
-      }),
-      QueueUrl: process.env.REPO_QUEUE ? process.env.REPO_QUEUE : 'error',
-      MessageGroupId: installationId.toString(),
-    })
-    .promise()
-  return response.MessageId
-}
+  const response = await github.queueNextPage(
+    event.pathParameters.owner ?? 'TODO',
+    event.pathParameters.repo ?? 'TODO',
+    Number(event.pathParameters.installationId) ?? 0,
+    null,
+    null,
+  )
 
-export async function sqsRepoQueueHandler (event: SQSEvent): Promise<void[]> {
-  const response = event.Records.map(record => {
-    const body = JSON.parse(record.body) as github.sqsIssueMessage
-    const octokit = github.getAuthenticatedOctokit(body.installation_id)
-    return github.queryRepo(body.owner, body.repo, octokit, body.installation_id)
-  })
-  return Promise.all(response)
+  return response.MessageId
 }

@@ -1,81 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`formatter issue should format a bad issue 1`] = `
-Object {
-  "assignees": 2,
-  "author": "mikksoone",
-  "body_length": 0,
-  "closed_at": 0,
-  "closed_by": "",
-  "comments": 253,
-  "created_at": 1512598487000,
-  "holder": "kubernetes",
-  "id": 56903,
-  "repo": "kubernetes",
-  "time_to_close": 0,
-  "url": "https://api.github.com/repos/kubernetes/kubernetes",
-}
-`;
-
 exports[`formatter issue should format a good issue 1`] = `
 Object {
   "assignees": 0,
-  "author": "mikksoone",
-  "body_length": 2733,
-  "closed_at": 1550815042000,
-  "closed_by": "thockin",
-  "comments": 253,
-  "created_at": 1512598487000,
-  "holder": "kubernetes",
-  "id": 56903,
-  "repo": "kubernetes",
-  "time_to_close": 38216555000,
-  "url": "https://api.github.com/repos/kubernetes/kubernetes",
-}
-`;
-
-exports[`formatter pull request should format a bad pull request 1`] = `
-Object {
-  "additions": 10,
-  "assignees": 0,
-  "author": "palnabarun",
+  "author": "jbeda",
   "body_length": 0,
-  "changed_files": 2,
-  "closed_at": 0,
-  "commits": 1,
-  "created_at": 1610130783000,
-  "deletions": 5,
+  "closed_at": 1403890836000,
+  "closed_by": "brendandburns",
+  "comments": 3,
+  "created_at": 1402098770000,
   "holder": "kubernetes",
-  "id": 1513,
-  "merged_at": 0,
-  "merged_by": "",
-  "repo": "k8s.io",
-  "review_comments": 0,
-  "reviewers": 0,
-  "time_to_merge": 0,
-  "url": "https://api.github.com/repos/kubernetes/k8s.io",
+  "id": 1,
+  "repo": "kubernetes",
+  "time_to_close": 1792066000,
+  "url": "https://github.com/kubernetes/kubernetes",
 }
 `;
 
 exports[`formatter pull request should format a good pull request 1`] = `
 Object {
-  "additions": 10,
-  "assignees": 9,
-  "author": "palnabarun",
-  "body_length": 336,
-  "changed_files": 2,
-  "closed_at": 1610132191000,
+  "additions": 271,
+  "assignees": 0,
+  "author": "proppy",
+  "body_length": 240,
+  "changed_files": 3,
+  "closed_at": 1403245242000,
   "commits": 1,
-  "created_at": 1610130783000,
-  "deletions": 5,
+  "created_at": 1402141286000,
+  "deletions": 245,
   "holder": "kubernetes",
-  "id": 1513,
-  "merged_at": 1610132190000,
-  "merged_by": "k8s-ci-robot",
-  "repo": "k8s.io",
-  "review_comments": 0,
-  "reviewers": 2,
-  "time_to_merge": 1407000,
-  "url": "https://api.github.com/repos/kubernetes/k8s.io",
+  "id": 13,
+  "merged_by": "proppy",
+  "repo": "kubernetes",
+  "reviewers": 0,
+  "time_to_close": 1103956000,
+  "url": "https://github.com/kubernetes/kubernetes",
 }
 `;

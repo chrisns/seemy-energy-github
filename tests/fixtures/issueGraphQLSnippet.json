@@ -1,0 +1,17 @@
+{
+  "node": {
+    "number": 1,
+    "repository": {
+      "name": "kubernetes",
+      "owner": { "login": "kubernetes" },
+      "url": "https://github.com/kubernetes/kubernetes"
+    },
+    "author": { "login": "jbeda" },
+    "comments": { "totalCount": 3 },
+    "createdAt": "2014-06-06T23:52:50Z",
+    "closedAt": "2014-06-27T17:40:36Z",
+    "assignees": { "totalCount": 0 },
+    "body": "",
+    "closedBy": { "nodes": [{ "actor": { "login": "brendandburns" } }] }
+  }
+}

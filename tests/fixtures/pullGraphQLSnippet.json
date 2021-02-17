@@ -1,0 +1,22 @@
+{
+  "node": {
+    "number": 13,
+    "additions": 271,
+    "deletions": 245,
+    "changedFiles": 3,
+    "repository": {
+      "name": "kubernetes",
+      "owner": { "login": "kubernetes" },
+      "url": "https://github.com/kubernetes/kubernetes"
+    },
+    "commits": { "totalCount": 1 },
+    "author": { "login": "proppy" },
+    "comments": { "totalCount": 3 },
+    "createdAt": "2014-06-07T11:41:26Z",
+    "closedAt": "2014-06-20T06:20:42Z",
+    "assignees": { "totalCount": 0 },
+    "reviews": { "totalCount": 0 },
+    "body": "added some table driven test for service and requests\n\n```\nPASS\ncoverage: 95.2% of statements\nok      github.com/GoogleCloudPlatform/kubernetes-new/pkg/client    1.145s\n```\n\nIf you like it, I can do refactor the rest of the file similarly.\n",
+    "closedBy": { "nodes": [{ "actor": { "login": "proppy" } }] }
+  }
+}

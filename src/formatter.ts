@@ -1,11 +1,4 @@
-import { GetResponseDataTypeFromEndpointMethod } from '@octokit/types'
-import { Octokit } from '@octokit/rest'
-const octokit = new Octokit()
-
-type PullRequestGetResponseDataType = GetResponseDataTypeFromEndpointMethod<typeof octokit.pulls.get>
-type IssuesGetResponseDataType = GetResponseDataTypeFromEndpointMethod<typeof octokit.issues.get>
-
-interface RecordPullRequest {
+export interface RecordPullRequest {
   repo: string
   id: number
   url: string
@@ -13,43 +6,44 @@ interface RecordPullRequest {
   author: string
   created_at: number
   closed_at: number
-  merged_at: number
+  // merged_at: number
   assignees: number
   reviewers: number
   body_length: number
-  time_to_merge: number
+  // time_to_merge: number
   merged_by: string
   commits: number
-  review_comments: number
+  // review_comments: number
   additions: number
   deletions: number
   changed_files: number
+  time_to_close: number
 }
 
-export function formatPullRequest (pull: PullRequestGetResponseDataType): RecordPullRequest {
+export function formatPullRequest (pull): RecordPullRequest {
   return {
-    repo: pull.base.repo.name,
-    id: pull.number,
-    url: pull.base.repo.url,
-    holder: pull.base.user.login,
-    author: pull.user?.login ?? 'unknown',
-    commits: pull.commits,
-    review_comments: pull.review_comments,
-    additions: pull.additions,
-    deletions: pull.deletions,
-    changed_files: pull.changed_files,
-    merged_by: pull.merged_by?.login ?? '',
-    created_at: Date.parse(pull.created_at),
-    closed_at: pull.closed_at ? Date.parse(pull.closed_at) : 0,
-    merged_at: pull.merged_at ? Date.parse(pull.merged_at) : 0,
-    assignees: pull.assignees?.length ?? 0,
-    reviewers: pull.requested_reviewers?.length ?? 0,
-    body_length: pull.body?.length ?? 0,
-    time_to_merge: pull.merged_at ? Date.parse(pull.merged_at) - Date.parse(pull.created_at) : 0,
+    repo: pull.node.repository.name,
+    id: pull.node.number,
+    url: pull.node.repository.url,
+    holder: pull.node.repository.owner.login,
+    author: pull.node.author.login,
+    commits: pull.node.commits.totalCount,
+    // review_comments
+    additions: pull.node.additions,
+    deletions: pull.node.deletions,
+    changed_files: pull.node.changedFiles,
+    merged_by: pull.node.closedBy.nodes[0].actor.login,
+    created_at: Date.parse(pull.node.createdAt),
+    closed_at: Date.parse(pull.node.closedAt),
+    // merged_at
+    assignees: pull.node.assignees.totalCount,
+    reviewers: pull.node.reviews.totalCount,
+    body_length: pull.node.body.length,
+    time_to_close: Date.parse(pull.node.closedAt) - Date.parse(pull.node.createdAt),
   }
 }
 
-interface RecordIssue {
+export interface RecordIssue {
   repo: string
   id: number
   url: string
@@ -64,19 +58,19 @@ interface RecordIssue {
   comments: number
 }
 
-export function formatIssue (issue: IssuesGetResponseDataType): RecordIssue {
+export function formatIssue (issue): RecordIssue {
   return {
-    repo: issue.repository_url.split('/').reverse()[0],
-    id: issue.number,
-    url: issue.repository_url,
-    holder: issue.repository_url.split('/').reverse()[1],
-    author: issue.user?.login ?? 'unknown',
-    comments: issue.comments,
-    closed_by: issue.closed_by?.login ?? '',
-    created_at: Date.parse(issue.created_at),
-    closed_at: issue.closed_at ? Date.parse(issue.closed_at) : 0,
-    assignees: issue.assignees?.length ?? 0,
-    body_length: issue.body?.length ?? 0,
-    time_to_close: issue.closed_at ? Date.parse(issue.closed_at) - Date.parse(issue.created_at) : 0,
+    repo: issue.node.repository.name,
+    id: issue.node.number,
+    url: issue.node.repository.url,
+    holder: issue.node.repository.owner.login,
+    author: issue.node.author.login,
+    comments: issue.node.comments.totalCount,
+    closed_by: issue.node.closedBy.nodes[0].actor.login,
+    created_at: Date.parse(issue.node.createdAt),
+    closed_at: Date.parse(issue.node.closedAt),
+    assignees: issue.node.assignees.totalCount,
+    body_length: issue.node.body.length,
+    time_to_close: Date.parse(issue.node.closedAt) - Date.parse(issue.node.createdAt),
   }
 }
