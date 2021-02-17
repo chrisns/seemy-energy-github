@@ -157,8 +157,8 @@ export async function flow (
     repository.pullRequests.pageInfo.endCursor,
     repository.issues.pageInfo.endCursor,
   )
-  const pulls = repository.pullRequests.edges.map(formatPullRequest)
-  const issues = repository.issues.edges.map(formatIssue)
+  const pulls = repository.pullRequests?.edges.map(formatPullRequest)
+  const issues = repository.issues?.edges.map(formatIssue)
   const persistedPulls = await persistBatchOfPulls(pulls)
   const persistedIssues = await persistBatchOfIssues(issues)
   return {
