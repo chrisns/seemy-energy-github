@@ -168,15 +168,19 @@ export async function flow (
   }
 }
 
-export async function persistBatchOfIssues (issues: RecordIssue[]): Promise<DocumentClient.BatchWriteItemOutput> {
+export async function persistBatchOfIssues (
+  issues: (RecordIssue | null)[],
+): Promise<DocumentClient.BatchWriteItemOutput> {
   return upsert_table(issues, process.env.ISSUE_TABLE ?? 'ISSUE_TABLE')
 }
-export async function persistBatchOfPulls (pulls: RecordPullRequest[]): Promise<DocumentClient.BatchWriteItemOutput> {
+export async function persistBatchOfPulls (
+  pulls: (RecordPullRequest | null)[],
+): Promise<DocumentClient.BatchWriteItemOutput> {
   return upsert_table(pulls, process.env.PULL_TABLE ?? 'PULL_TABLE')
 }
 
 export async function upsert_table (
-  payload: (RecordIssue | RecordPullRequest)[],
+  payload: (RecordIssue | RecordPullRequest | null)[],
   table: string,
 ): Promise<DocumentClient.BatchWriteItemOutput> {
   const items = payload.map((item: RecordIssue | RecordPullRequest) => {
