@@ -147,7 +147,7 @@ export async function flow (
   installationId: number,
   prCursor: string | null = null,
   issueCursor: string | null = null,
-): FlowResponse {
+): Promise<FlowResponse> {
   const repository = await makeQuery(owner, repo, installationId, undefined, prCursor, issueCursor)
 
   const nextPage = await queueNextPage(
