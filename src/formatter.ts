@@ -35,7 +35,7 @@ export function formatPullRequest (pull: PullRequestEdge): RecordPullRequest | n
       deletions: pull.node?.deletions,
       changed_files: pull.node?.changedFiles,
       // @ts-expect-error
-      merged_by: pull.node.closedBy.nodes[0].actor.login,
+      merged_by: pull.node?.closedBy?.nodes[0]?.actor?.login,
       created_at: <number>Date.parse(pull.node?.createdAt),
       closed_at: pull.node?.closedAt ? Date.parse(pull.node.closedAt) : undefined,
       // merged_at
@@ -78,7 +78,7 @@ export function formatIssue (issue: IssueEdge): RecordIssue | null {
       author: issue.node?.author?.login,
       comments: issue.node?.comments.totalCount ?? 0,
       // @ts-expect-error
-      closed_by: issue.node.closedBy.nodes[0].actor.login,
+      closed_by: issue.node?.closedBy?.nodes[0]?.actor?.login,
       created_at: <number>Date.parse(issue.node?.createdAt),
       closed_at: issue.node?.closedAt ? Date.parse(issue.node.closedAt) : undefined,
       assignees: issue.node?.assignees.totalCount ?? 0,
