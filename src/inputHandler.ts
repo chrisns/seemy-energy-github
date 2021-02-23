@@ -1,9 +1,6 @@
 import * as github from './github'
 
 import { SQSEvent, APIGatewayProxyEventV2 } from 'aws-lambda'
-import SQS from 'aws-sdk/clients/sqs'
-
-export const sqsClient = new SQS()
 
 export async function sqsPageQueueHandler (event: SQSEvent): Promise<unknown> {
   const response = event.Records.map(record => {
