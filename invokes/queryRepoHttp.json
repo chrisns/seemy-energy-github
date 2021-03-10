@@ -1,0 +1,8 @@
+{
+  "pathParameters": {
+    "installationId": 13989917,
+    "owner": "kubernetes",
+    "repo": "kubernetes"
+  },
+  "httpMethod": "GET"
+}

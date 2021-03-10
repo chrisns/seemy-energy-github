@@ -6,10 +6,10 @@ useDotenv: true
 plugins:
   - serverless-plugin-typescript
   - serverless-jetpack
-
-custom:
-  serverless-jetpack:
-    mode: npm
+  # - serverless-offline-ssm-provider
+  - serverless-dynamodb-local
+  - serverless-offline-sqs
+  - serverless-offline
 
 provider:
   name: aws
@@ -42,12 +42,16 @@ provider:
             - Arn
 
   environment:
-    PAGE_QUEUE: !Ref PageQueue
-    PULL_TABLE: !Select [1, !Split ['/', !GetAtt pullTable.Arn]] 
-    ISSUE_TABLE: !Select [1, !Split ['/', !GetAtt issueTable.Arn]] 
+    PAGE_QUEUE: http://127.0.0.1:9324/queue/${self:custom.queueNames.pageQueue}
+    PULL_TABLE: ${self:custom.tableNames.pullTable}
+    ISSUE_TABLE: ${self:custom.tableNames.issueTable}
     appId: ${env:appId}
     privateKey: ${env:privateKey}
     DEBUG: "*"
+    AWS_ACCOUNT_ID: "#{AWS::AccountId}"
+    AWS_DEPLOY_REGION: ${self:provider.region}
+    SERVICE: ${self:service}
+
 
 functions:
   pageQueueHandler:
@@ -92,17 +96,17 @@ resources:
     PageQueue:
       Type: AWS::SQS::Queue
       Properties:
-        QueueName: seemyGithubPage.fifo
-        VisibilityTimeout: 1200
-        FifoQueue: true
-        ContentBasedDeduplication: true
-        RedrivePolicy:
-          deadLetterTargetArn: !GetAtt PageQueueDLQ.Arn
+        QueueName: ${self:custom.queueNames.pageQueue}
+        VisibilityTimeout: 1
+        # FifoQueue: true
+        # ContentBasedDeduplication: true
+        # RedrivePolicy:
+        #   deadLetterTargetArn: !GetAtt PageQueueDLQ.Arn
 
     pullTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: seemyVCSpull
+        TableName: ${self:custom.tableNames.pullTable}
         KeySchema:
           - AttributeName: url
             KeyType: HASH
@@ -119,7 +123,7 @@ resources:
     issueTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: seemyVCSissue
+        TableName: ${self:custom.tableNames.issueTable}
         KeySchema:
           - AttributeName: url
             KeyType: HASH
@@ -133,3 +137,33 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 2
+
+custom:
+  serverless-jetpack:
+    mode: npm
+
+  dynamodb:
+    noStart: true
+
+  queueNames:
+    pageQueue: seemyGithubPage
+
+  tableNames:
+    issueTable: seemyVCSissue
+    pullTable: seemyVCSpull
+
+    stages:
+      - production
+    start:
+      migrate: true
+
+  serverless-offline:
+    httpPort: 3223
+
+  serverless-offline-sqs:
+    endpoint: http://localhost:9324
+    region: eu-west-2
+    skipCacheInvalidation: false
+    accessKeyId: x
+    secretAccessKey: x
+    autoCreate: true

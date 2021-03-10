@@ -1,0 +1,3 @@
+
+schema: "./node_modules/@octokit/graphql-schema/schema.graphql"
+# documents: "tests/**/*.{graphql,js,ts,jsx,tsx}"

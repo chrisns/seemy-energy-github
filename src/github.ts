@@ -6,7 +6,7 @@ import { Repository } from '@octokit/graphql-schema'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 
 export const sqsClient = new SQS()
-export const documentClient = new DocumentClient()
+export const documentClient = new DocumentClient({ endpoint: 'http://localhost:8000' })
 
 export function getAuthenticatedOctokit (installationId: number): typeof graphql {
   const auth = createAppAuth({
@@ -149,7 +149,6 @@ export async function flow (
   issueCursor: string | null = null,
 ): Promise<FlowResponse> {
   const repository = await makeQuery(owner, repo, installationId, undefined, prCursor, issueCursor)
-
   const nextPage = await queueNextPage(
     owner,
     repo,
@@ -157,6 +156,7 @@ export async function flow (
     repository.pullRequests.pageInfo.endCursor,
     repository.issues.pageInfo.endCursor,
   )
+
   const pulls = repository.pullRequests?.edges.map(formatPullRequest)
   const issues = repository.issues?.edges.map(formatIssue)
   const persistedPulls = await persistBatchOfPulls(pulls)
@@ -171,12 +171,12 @@ export async function flow (
 export async function persistBatchOfIssues (
   issues: (RecordIssue | null)[],
 ): Promise<DocumentClient.BatchWriteItemOutput> {
-  return upsert_table(issues, process.env.ISSUE_TABLE ?? 'ISSUE_TABLE')
+  return upsert_table(issues, process.env.ISSUE_TABLE ?? 'ISSUETABLE')
 }
 export async function persistBatchOfPulls (
   pulls: (RecordPullRequest | null)[],
 ): Promise<DocumentClient.BatchWriteItemOutput> {
-  return upsert_table(pulls, process.env.PULL_TABLE ?? 'PULL_TABLE')
+  return upsert_table(pulls, process.env.PULL_TABLE ?? 'PULLTABLE')
 }
 
 export async function upsert_table (
@@ -205,7 +205,6 @@ export async function queueNextPage (
         prCursor,
         issueCursor,
       }),
-      MessageGroupId: installationId.toString(),
       QueueUrl: process.env.PAGE_QUEUE ?? 'page_queue',
     })
     .promise()

@@ -1,0 +1,13 @@
+version: "3"
+services:
+
+  dynamodb:
+    image: cnadiminti/dynamodb-local:latest
+    ports:
+      - "8000:8000"
+
+  sqs:
+    image: softwaremill/elasticmq:latest
+    ports:
+      - "9324:9324"
+      - "9325:9325"
