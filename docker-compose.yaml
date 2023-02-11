@@ -2,12 +2,12 @@ version: "3"
 services:
 
   dynamodb:
-    image: cnadiminti/dynamodb-local:latest
+    image: cnadiminti/dynamodb-local:latest@sha256:66953f225cb3129eb27974e3df1d42503cc9760989a848235c6794f2729b490f
     ports:
       - "8000:8000"
 
   sqs:
-    image: softwaremill/elasticmq:latest
+    image: softwaremill/elasticmq:latest@sha256:c56440f3536d1438be9343211c58e93561ca0d299e6842b6587b93751d68d776
     ports:
       - "9324:9324"
       - "9325:9325"
