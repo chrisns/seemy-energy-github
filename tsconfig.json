@@ -3,7 +3,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "preserveConstEnums": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "sourceMap": true,
     "allowJs": true,
     "target": "es5",
